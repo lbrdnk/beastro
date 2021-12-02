@@ -29,6 +29,7 @@ module.exports = {
     extend: {
       boxShadow: ['hover'],
       opacity: ['hover'],
+      margin: ['first'],
     },
   },
   plugins: [],

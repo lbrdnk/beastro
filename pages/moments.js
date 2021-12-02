@@ -27,14 +27,13 @@ export default function Moments({ moments }) {
     // console.log(parseInt(moments[0].photos[0].width / 3) + "px")
 
     return (
-        <div className="self-center flex flex-wrap items-center justify-evenly " style={{ maxWidth: "768px" }}>
-
+        <div className="flex flex-wrap items-center justify-evenly md:justify-between p-2 md:max-w-3xl">
 
             {/* test all imgs with use of responsive */}
             {moments[0].photos.map((photo, index) => {
                 return (
                     // <Image src={"http://localhost:1337" + moment.url} />
-                    <div key={photo.id} className="relative shadow-2xl m-2"
+                    <div key={photo.id} className="relative shadow-2xl m-2 bg-white"
                         style={{ width: parseInt(photo.width / 6) + "px", height: parseInt(photo.height / 6) + "px" }}>
                         <Image
                             src={"http://localhost:1337" + photo.url}

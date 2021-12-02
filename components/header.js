@@ -19,9 +19,9 @@ export default function Header({ }) {
     return (
         // following container makes divider between header and main,
         // overflow-hidden
-        <header className="sticky top-0 z-10 flex justify-center bg-white shadow-2xl overflow-hidden">
-            <div className="flex justify-between container md:max-w-3xl p-2">
-                <nav className="container flex justify-between">
+        <header className="sticky top-0 z-10 flex justify-center bg-white shadow-xl">
+            <div className="flex justify-between container md:max-w-3xl p-2 m-2">
+                <nav className="flex justify-between">
                     <Link href="/">
                         <a onClick={() => { setActivePath("/") }}>
                             <div className={"transition-shadow relative" + " " + (activePath == "/" ? activeShadow : inactiveShadow)}
@@ -57,10 +57,14 @@ export default function Header({ }) {
                                     <Link key={title} href={path} onClick={() => {
                                         setActivePath(path)
                                     }}>
-                                        <a className={"transition-shadow m-2 mb-0 p-2 text-xl" + " " + (activePath == path ? activeShadow : inactiveShadow)}
+                                        <a className={"bg-white m-2 mb-0 p-2 text-xl" + " " + (activePath == path ? activeShadow : inactiveShadow)}
                                             onClick={() => { setActivePath(path) }}
                                             style={{
-                                                fontFamily: "Times"
+                                                // fontFamily: "Times"
+                                                fontFamily: "'Merriweather', serif",
+                                                fontSize: "18px",
+                                                // fontStyle: "italic",
+                                                fontWeight: "300",
                                             }}
                                         >
                                             {title}
