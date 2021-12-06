@@ -1,4 +1,5 @@
 module.exports = {
+  // mode: 'jit',
   purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   darkMode: false, // or 'media' or 'class'
   theme: {
@@ -30,6 +31,8 @@ module.exports = {
       boxShadow: ['hover'],
       opacity: ['hover'],
       margin: ['first'],
+      transform: ['hover'],
+      translate: ['hover'],
     },
   },
   plugins: [],
