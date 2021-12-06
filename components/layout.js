@@ -8,23 +8,14 @@ export default function Layout({ children }) {
 
     const [menuOpened, setMenuOpened] = useState(false);
 
-    // closed, closing, opened, opening
-    const [menuState, setMenuState] = useState("closed")
-
-    // const horeClassesClosed = "fixed bg-red-100 h-40 -top-20 w-full"
-    // const animateOpen = "fixed bg-red-100 h-40 -top-20 transform duration-500 translate-y-20  w-full"
-
-    // const horeClassesOpen = "fixed bg-red-100 h-40 w-full"
-    // const animateClose = "fixed bg-red-100 h-40 transform duration-500 -translate-y-20  w-full"
+    const [selectedItem, setSelectedItem] = useState("/");
 
     const headerBase = "w-full fixed h-60 transition-all duration-1000 transform"
     const closedClasses = "-top-40"
     const openedClasses = "top-0"
 
-    // console.log("redraw")
-
     useEffect(() => {
-        console.log(menuOpened)
+        // console.log(menuOpened)
     })
 
     return (
@@ -34,17 +25,16 @@ export default function Layout({ children }) {
             <div className={"z-10 " + headerBase + " " + (menuOpened ? openedClasses : closedClasses)}
                 onTransitionEnd={() => console.log("transition end")}
             >
-                <Header setMenuOpened={() => setMenuOpened(!menuOpened)} />
-            </div>  
-            <div className="pt-20 h-screen" // "mt-20 flex-grow"
-                // style={{height: "5000px"}}
+                <Header
+                    setMenuOpened={() => setMenuOpened(!menuOpened)}
+                    setSelectedItem={setSelectedItem}
+                />
+            </div>
+
+            <div className="pt-20 h-screen overflow-visible" // "mt-20 flex-grow"
+                // style={{ height: "5000px" }}
             >
                 {children}
-
-                {/* <div className="w-full min-h-full p-2 bg-purple-200">x</div> */}
-
-                {/* <p>content</p>
-                <button className="mt-20 border-4 border-black" onClick={() => setMenuOpened(!menuOpened)}>toggle menu</button> */}
             </div>
 
 

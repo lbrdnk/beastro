@@ -24,7 +24,49 @@ export default function Header({ menuOpened, setMenuOpened }) {
     return (
 
         <div className="flex justify-center items-stretch w-full h-full shadow-lg bg-white">
-            <div className="container max-w-3xl flex justify-center items-end">
+            <div className="container max-w-3xl flex flex-col  justify-end items-center">
+
+                <div className="flex-grow flex flex-col justify-center">
+                    {
+                        [
+                            {
+                                path: "/exhibitions",
+                                title: "Exhibitions"
+                            },
+                            {
+                                path: "/moments",
+                                title: "Moments"
+                            },
+                        ].map(({ path, title }) => {
+                            
+                            // 
+                            
+                            return (
+                                <Link key={title} href={path} onClick={() => {
+                                    setActivePath(path)
+                                }}>
+                                    <a className={"bg-white m-2 mb-0 p-2 text-xl" + " " + (activePath == path ? activeShadow : inactiveShadow)}
+                                        onClick={() => {
+                                            setActivePath(path);
+                                            setSelectedItem(path)
+                                        }}
+                                        style={{
+                                            // fontFamily: "Times"
+                                            fontFamily: "'Merriweather', serif",
+                                            fontSize: "18px",
+                                            // fontStyle: "italic",
+                                            fontWeight: "300",
+                                        }}
+                                    >
+                                        {title}
+                                    </a>
+                                </Link>
+                            );
+                        })
+                    }
+                    {/* <div>Moments</div>
+                    <div>Exhibitions</div> */}
+                </div>
                 <div className="flex items-center h-20 p-1">
                     <div className="relative shadow-lg"
                         onClick={setMenuOpened}
