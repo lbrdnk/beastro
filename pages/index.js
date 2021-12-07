@@ -21,57 +21,36 @@ export async function getStaticProps(context) {
 
 export default function Home({ data }) {
 
+    const { width, height } = data;
+
     return (
 
-        <div className="w-full h-screen p-4 space-y-2 flex flex-col">
+        <div className="p-2">
             {/* using separate div to avoid box-shadow color inversion */}
-            <div className="w-full shadow-lg">
-                
-                <img
-                    src={"http://localhost:1337" + data.url}
-                    className="block h-full w-full filter invert"
+
+            <div className="shadow-lg">
+                {/* following div sets width and height for next/image that has layout=fill */}
+                <div className="relative w-full filter invert"
                     style={{
-                        objectFit: "cover",
-                        height: "3000px"
+                        height: height + "px"
                     }}
-                />
-
-                <div className="w-full h-20 asdf shadow-lg"></div>
-
-                <p> Cras ac iaculis mauris, in blandit nulla. In hac habitasse platea dictumst. Nunc rutrum orci vel risus mollis, ac gravida augue dapibus. Pellentesque lacinia felis quis felis facilisis, non sagittis nibh aliquet. Etiam sed luctus purus, eu pharetra massa. Aenean sed egestas lacus, mollis dignissim ipsum. Praesent vel nisi nulla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; </p>
+                >
+                    <Image
+                        src={"http://localhost:1337" + data.url}
+                        // width={width}
+                        // height={height}
+                        layout="fill"
+                        objectFit="cover"
+                        objectPosition="-530px 0%"
+                    // className="block h-full w-full filter invert"
+                    // style={{
+                    //     objectPosition: "",
+                    //     objectFit: "cover",
+                    //     height: "100%"
+                    // }}
+                    />
+                </div>
             </div>
-
-
-
         </div>
     )
 }
-
-{/* <div className="filter invert relative max-w-3xl">
-                <Image
-                    src={"http://localhost:1337" + data.url}
-                    width={data.width}
-                    height={data.height}
-                    fill="responsive"
-                // sizes="500px"
-                />
-                
-            </div> */}
-
-
-
-
-{/* <div className="h-full w-full filter invert relative max-w-3xl">
-                <Image
-                    src={"http://localhost:1337" + data.url}
-                    width={data.width}
-                    height={data.height}
-                    layout="fill"
-                    objectFit="cover"
-                // sizes="500px"
-                />
-            </div>
-
-            <div>
-                sem ide neco dalsie
-            </div> */}
