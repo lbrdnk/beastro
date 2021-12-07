@@ -10,12 +10,20 @@ export default function Layout({ children }) {
 
     const [selectedItem, setSelectedItem] = useState("/");
 
-    const headerBase = "w-full fixed h-60 transition-all duration-1000 transform"
+    const headerBase = "w-full fixed h-60 transition-all duration-1000 "
     const closedClasses = "-top-40"
     const openedClasses = "top-0"
 
+    const [gradientColor, setGradientColor] = useState(0);
+    const changeGradientColor = () => setGradientColor((gradientColor + 1) % 2)
+
+    const gradientClass = gradientColor === 0 ? "asdf" : "fdsa";
+
+    const [rotate, setRotate] = useState(true);
+
     useEffect(() => {
         // console.log(menuOpened)
+        console.log(gradientColor)
     })
 
     return (
@@ -23,19 +31,31 @@ export default function Layout({ children }) {
         <div className="relative flex flex-col w-screen">
 
             <div className={"z-10 " + headerBase + " " + (menuOpened ? openedClasses : closedClasses)}
-                onTransitionEnd={() => console.log("transition end")}
+                onTransitionEnd={() => {console.log("transition end"); setRotate(!rotate)}}
             >
+
                 <Header
                     setMenuOpened={() => setMenuOpened(!menuOpened)}
                     setSelectedItem={setSelectedItem}
+                    selectedItem={selectedItem}
+                    rotate={rotate}
                 />
+
             </div>
 
+
+
             <div className="pt-20 h-screen overflow-visible" // "mt-20 flex-grow"
-                // style={{ height: "5000px" }}
+            // style={{ height: "5000px" }}
             >
+
+                <button className="border-4 mt-10"
+                    onClick={changeGradientColor}
+                >change bg</button>
+
                 {children}
             </div>
+
 
 
         </div>

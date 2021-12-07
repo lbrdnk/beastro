@@ -23,7 +23,12 @@ module.exports = {
       boxShadow: {
         "test": "0 20px 25px -5px rgba(245, 40, 145, 0.2), 0 10px 10px -5px rgba(245, 40, 145, 0.2)",
         "link-active": "0 20px 20px 0px rgba(39, 189, 245, 0.2), 0 10px 10px -5px rgba(39, 189, 245, 0.2)"
-      }
+      },
+      // animation: {
+      //   "spin2": {
+
+      //   }
+      // }
     },
   },
   variants: {

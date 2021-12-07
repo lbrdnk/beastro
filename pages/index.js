@@ -15,37 +15,18 @@ export async function getStaticProps(context) {
     }
 
     return {
-        props: { data }, // will be passed to the page component as props
+        props: { data },
     }
 }
 
 export default function Home({ data }) {
-    // console.log(invitation);
-    // console.log(data)
-
 
     return (
-        // <div className=" h-full w-full shadow-lg flex items-center">
-        //     <div className="filter invert relative w-full h-full"
-        //     >
-        //         <img
-        //             src={"http://localhost:1337" + data.url}
-        //             className=""
-        //             style={{
-        //                 objectFit: "cover",
-        //             }}
-        //             // width={data.width}
-        //             // height={data.height}
-        //             // layout="fill"
-        //             // objectFit="cover"
-        //         // sizes="500px"
-        //         />
-        //     </div>
-        // </div>
 
-        <div className="w-full h-screen p-4 shadow-lg space-y-2 flex flex-col">
-            {/* nasledujuci div aby som neinvertoval shadow */}
+        <div className="w-full h-screen p-4 space-y-2 flex flex-col">
+            {/* using separate div to avoid box-shadow color inversion */}
             <div className="w-full shadow-lg">
+                
                 <img
                     src={"http://localhost:1337" + data.url}
                     className="block h-full w-full filter invert"

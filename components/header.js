@@ -5,7 +5,7 @@ import Link from "next/link";
 import beastroType from '../public_tmp/img/beastro_type.jpg';
 import beastroSquare from '../public_tmp/img/beastro_square.jpg';
 
-export default function Header({ menuOpened, setMenuOpened }) {
+export default function Header({ menuOpened, setMenuOpened, rotate }) {
 
     // const inactiveShadow = "shadow-lg shadow-link-active hover:shadow-test";
     const inactiveShadow = "shadow-lg";
@@ -21,10 +21,19 @@ export default function Header({ menuOpened, setMenuOpened }) {
     const btHeight = 64;
     const btWidth = parseInt(btHeight * beastroType.width / beastroType.height);
 
+    // fix height for square
+    const sqaureHeight = 64;
+    // const btWidth = parseInt(btHeight * beastroType.width / beastroType.height);
+    const squareWidth = parseInt(sqaureHeight * beastroSquare.width / beastroSquare.height);
+
+
+    const rotateClasses = ""
+
     return (
 
         <div className="flex justify-center items-stretch w-full h-full shadow-lg bg-white">
             <div className="container max-w-3xl flex flex-col  justify-end items-center">
+
 
                 <div className="flex-grow flex flex-col justify-center">
                     {
@@ -38,10 +47,10 @@ export default function Header({ menuOpened, setMenuOpened }) {
                                 title: "Moments"
                             },
                         ].map(({ path, title }) => {
-                            
-                            // 
-                            
+
+
                             return (
+
                                 <Link key={title} href={path} onClick={() => {
                                     setActivePath(path)
                                 }}>
@@ -67,7 +76,14 @@ export default function Header({ menuOpened, setMenuOpened }) {
                     {/* <div>Moments</div>
                     <div>Exhibitions</div> */}
                 </div>
-                <div className="flex items-center h-20 p-1">
+
+
+
+
+                {/* LOGO initial screen rectangle */}
+                <div className="hidden flex items-center h-20 p-1">
+
+
                     <div className="relative shadow-lg"
                         onClick={setMenuOpened}
                         style={{ width: btWidth, height: btHeight }}
@@ -77,9 +93,50 @@ export default function Header({ menuOpened, setMenuOpened }) {
                             objectFit="contain"
                         />
                     </div>
-                    {/* <div>menu</div> */}
                 </div>
+
+                {/* LOGO initialScreen SQUARE CIRCLE */}
+                <div className="relative flex items-center h-20 p-1">
+                    {/* ! COVER JGP AS CIRCLE 
+                    221	220	239	
+                    #E2D7EC
+                    #EBE2F2
+                    #A6ACDD
+                    #F2EAF7
+                    */}
+                    <div className={
+                        ("absolute w-16 h-16 fdsa flex items-center justify-center filter blur-lg rounded-full"
+                        + " "
+                        + (rotate ? rotateClasses : ""))
+                    }></div>
+
+                    <div className="rounded-full shadow-lg"
+                        style={{
+                            width: "64px",
+                            height: "64px",
+                            overflow: "hidden",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                        }}
+                    >
+                        <div className="relative shadow-lg"
+                            onClick={() => {setMenuOpened()}}
+                            style={{ width: squareWidth, height: sqaureHeight }}
+                        >
+                            <Image
+
+                                src={beastroSquare} width={beastroSquare.width} height={beastroSquare.height}
+                                layout="fill"
+                                objectFit="contain"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
+
         </div>
     )
 }
