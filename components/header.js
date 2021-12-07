@@ -96,7 +96,7 @@ export default function Header({ menuOpened, setMenuOpened, rotate }) {
                 </div>
 
                 {/* LOGO initialScreen SQUARE CIRCLE */}
-                <div className="relative flex items-center h-20 p-1">
+                <div className="relative flex justify-center items-center h-20 p-1">
                     {/* ! COVER JGP AS CIRCLE 
                     221	220	239	
                     #E2D7EC
@@ -104,11 +104,17 @@ export default function Header({ menuOpened, setMenuOpened, rotate }) {
                     #A6ACDD
                     #F2EAF7
                     */}
-                    <div className={
-                        ("absolute w-16 h-16 fdsa flex items-center justify-center filter blur-lg rounded-full"
-                        + " "
-                        + (rotate ? rotateClasses : ""))
-                    }></div>
+                    {/* <div className={
+                        ("absolute w-16 h-16 flex items-center justify-center border-b-4 inset-auto border-blue-400 border-dashed")
+                    }></div> */}
+
+                    <div className="relative w-8 h-8 mr-32">
+                        <svg className="absolute w-16 inset-auto" width="64" height="64" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                            {/* <line x1="0" x2="32" y1="42" y2="21" stroke="black" stroke-width="5" />
+                            <line x1="32" x2="63" y1="21" y2="42" stroke="black" stroke-width="5" /> */}
+                            <polygon points="26 26 37 26 31 37" />
+                        </svg>
+                    </div>
 
                     <div className="rounded-full shadow-lg"
                         style={{
@@ -121,7 +127,7 @@ export default function Header({ menuOpened, setMenuOpened, rotate }) {
                         }}
                     >
                         <div className="relative shadow-lg"
-                            onClick={() => {setMenuOpened()}}
+                            onClick={() => { setMenuOpened() }}
                             style={{ width: squareWidth, height: sqaureHeight }}
                         >
                             <Image
