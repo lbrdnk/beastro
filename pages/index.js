@@ -42,12 +42,14 @@ export default function Home({ data }) {
                         layout="fill"
                         objectFit="cover"
                         objectPosition="-530px 0%"
-                    // className="block h-full w-full filter invert"
-                    // style={{
-                    //     objectPosition: "",
-                    //     objectFit: "cover",
-                    //     height: "100%"
-                    // }}
+                        // className="block h-full w-full filter invert"
+                        // style={{
+                        //     objectPosition: "",
+                        //     objectFit: "cover",
+                        //     height: "100%"
+                        // }}
+                        priority
+                        quality={100}
                     />
                 </div>
             </div>

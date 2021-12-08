@@ -21,7 +21,7 @@ const menuItems = [
 
 export default function Layout({ children }) {
 
-    const [menuOpened, setMenuOpened] = useState(true);
+    const [menuOpened, setMenuOpened] = useState(false);
 
     // const [selectedItem, setSelectedItem] = useState("/");
 
@@ -34,6 +34,10 @@ export default function Layout({ children }) {
     // fix height for square
     const sqaureHeight = 64;
     const squareWidth = parseInt(sqaureHeight * beastroSquare.width / beastroSquare.height);
+
+    // fix height for significant other
+    const btHeight = 64;
+    const btWidth = parseInt(btHeight * beastroType.width / beastroType.height);
 
 
     return (
@@ -48,41 +52,98 @@ export default function Layout({ children }) {
                     + " "
                     + (menuOpened ? openedClasses : closedClasses)
                     + " "
-                    + "shadow-lg "
+                    + "shadow-lg"
                 }
                 style={{
-                    // backgroundColor: "rgba(255,255,255,0.5)",
-                    backdropFilter: "blur(10px)"
+                    backdropFilter: "blur(10px)",
+                    backgroundColor: (menuOpened ? "rgba(0,0,0,0.1)" : "rgba(255,255,255,0.3)"),
                 }}
             >
                 {/* header start */}
 
                 {/* header upper start */}
-                <div className="flex h-40">
-                    {
-                        menuItems.map(({ path, title }) => {
-                            return (
+                <div className="flex flex-row justify-start h-40">
 
-                                <Link key={title} href={path} onClick={() => {
-                                    setActivePath(path)
-                                }}>
-                                    <a className={"bg-white m-2 mb-0 p-2 text-xl"}
-                                        onClick={() => {
-                                            setActivePath(path);
-                                            setSelectedItem(path)
-                                        }}
-                                        style={{
-                                            fontFamily: "'Merriweather', serif",
-                                            fontSize: "18px",
-                                            fontWeight: "300",
-                                        }}
-                                    >
-                                        {title}
-                                    </a>
-                                </Link>
-                            );
-                        })
-                    }
+                    {/* NAV div */}
+                    <div className=" flex flex-col justify-between p-1 items-end h-full"
+                        style={{
+                            minWidth: "calc(50% - 40px)"
+                        }}
+                    >
+
+                        {/* beastroType img link */}
+                        <div className="bg-red-200 shadow-lg m-1"
+                            style={{
+                                width: parseInt(btWidth) + "px",
+                                height: parseInt(btHeight) + "px",
+                            }}
+                        >
+                            <div className="relative w-full h-full"
+
+                            >
+                                <Image
+                                    src={beastroType}
+                                    layout="fill"
+                                    objectFit="cover"
+                                    priority
+                                />
+                            </div>
+                        </div>
+                        {/* beastroType img link end */}
+                        {/* other nav links */}
+                        {
+                            menuItems.map(({ path, title }) => {
+                                return (
+
+                                    <Link key={title} href={path} onClick={() => {
+                                        setActivePath(path)
+                                    }}>
+                                        <a className={"bg-white m-1 shadow-lg pl-0.5"}
+                                            onClick={() => {
+                                                setActivePath(path);
+                                                setSelectedItem(path)
+                                            }}
+                                            style={{
+                                                fontFamily: "'Kosugi', sans-serif",
+                                                fontSize: "1rem",
+                                                letterSpacing: "2px",
+                                                fontWeight: "bold",
+                                            }}
+                                        >
+                                            {title}
+                                        </a>
+                                    </Link>
+                                );
+                            })
+                        }
+                        {/* other nav links end */}
+                    </div>
+                    {/* ABOUT div */}
+                    <div className="p-1 m-1 flex-grow flex justify-center items-stretch">
+                        <div
+                            className="w-full flex flex-col justify-center items-center bg-white shadow-lg"
+                        >
+                            {
+                                ["Gallery.", "Mikulášska 27,", "Bratislava."].map((line) => {
+                                    return (
+                                        <p key={line}
+                                            className="pl-2 text-center"
+                                            style={{
+                                                fontFamily: "'Kosugi', sans-serif",
+                                                fontSize: "1rem",
+                                                letterSpacing: "2px",
+                                            }}
+                                        >
+                                            {line}
+                                        </p>
+
+                                    );
+                                })
+                            }
+
+                        </div>
+                    </div>
+                    {/* ABOUT div end */}
                 </div>
                 {/* header upper end */}
 
@@ -99,26 +160,29 @@ export default function Layout({ children }) {
                         }}
                     >
                         <div className="relative shadow-lg"
-                            onClick={() => { setMenuOpened(!menuOpened) }}
+                            onClick={() => {
+                                setMenuOpened(!menuOpened);
+                            }}
                             style={{ width: squareWidth, height: sqaureHeight }}
                         >
                             <Image
-                                src={beastroSquare} width={beastroSquare.width} height={beastroSquare.height}
+                                src={beastroSquare}
                                 layout="fill"
                                 objectFit="contain"
+                                quality={100}
                             />
                         </div>
                     </div>
                 </div>
                 {/* header visible end */}
 
-                {/* header end */}
             </div>
+            {/* header end */}
 
             {/* main container */}
-            <div className="pt-20 h-screen overflow-visible">
+            <div className="pt-20 h-screen overflow-visible max-w-3xl">
                 {children}
-            </div >
-        </div >
+            </div>
+        </div>
     )
 }
