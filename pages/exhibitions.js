@@ -20,7 +20,7 @@ export async function getStaticProps(context) {
     data.reverse();
 
     return {
-        props: { data }, // will be passed to the page component as props
+        props: { data },
     }
 }
 
@@ -30,8 +30,7 @@ export default function Exhibitions(props) {
 
     return (
         <div className="space-y-[calc(100vh-80px)]">
-            {data.map(e => <Exhibition key={e.id} e={e} />)}  
-            {/* <div className="min-h-[100%]">x</div> */}
+            {data.map(e => <Exhibition key={e.id} e={e} />)}
         </div>
     );
 }

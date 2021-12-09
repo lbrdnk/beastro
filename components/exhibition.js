@@ -17,11 +17,18 @@ export default function Exhibition({ e }) {
         }
     }, [ref])
 
+    console.log(e.invitation)
+
     return (
         <div className="flex flex-col justify-center items-center">
-            
+
             {/* photos */}
-            <div className="before:h-[calc(100vh-80px)] before:mt-20 flex flex-col w-full justify-center space-y-4 p-4">
+            <div
+                className={
+                    "flex flex-col w-full justify-center space-y-4 p-4"
+                    + (e.invitation ? " before:h-[calc(100vh-80px)] before:mt-20" : "")
+                }
+            >
 
                 {e.photos.map(({ width, height, url }) => {
                     return (
@@ -45,31 +52,33 @@ export default function Exhibition({ e }) {
             </div>
             {/* photos end */}
 
-            <div className="sticky bg-green-200 w-full flex justify-center items-center"
-                style={{
-                    // TODO pridat clamp aby to bolo od hora max kusok
-                    bottom: `calc(calc(100vh - 80px) / 2 - ${dimensions[1] / 2}px)`
-                }}
-            >
-                <div
-                    ref={ref}
-                    className="sticky bottom-0 w-full bg-red-200"
+            {e.invitation && (
+                <div className="sticky w-full flex justify-center items-center"
                     style={{
-                        // bottom: "0px"
+                        // TODO pridat clamp aby to bolo od hora max kusok
+                        bottom: `calc(calc(100vh - 80px) / 2 - ${dimensions[1] / 2}px)`
                     }}
                 >
-                    <Image
-                        src={baseUrl + e.invitation.url}
-                        width={parseInt(e.invitation.width)}
-                        height={parseInt(e.invitation.height)}
-                        layout="responsive"
-                        sources={"60vw"}
-                    />
+                    <div
+                        ref={ref}
+                        className="sticky bottom-0 w-full"
+                        style={{
+                            // bottom: "0px"
+                        }}
+                    >
+                        <Image
+                            src={baseUrl + e.invitation.url}
+                            width={parseInt(e.invitation.width)}
+                            height={parseInt(e.invitation.height)}
+                            layout="responsive"
+                            sources={"60vw"}
+                        />
+                    </div>
                 </div>
-            </div>
-            
+            )}
             {/* popisok */}
             <div>{e.description}</div>
+
         </div>
     )
 }
