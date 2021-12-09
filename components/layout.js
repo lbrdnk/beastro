@@ -25,7 +25,7 @@ export default function Layout({ children }) {
 
     // const [selectedItem, setSelectedItem] = useState("/");
 
-    const headerBase = "fixed z-10 w-full h-60 transition-all duration-1000 "
+    const headerBase = "fixed z-40 w-full h-60 transition-all duration-1000 "
     const closedClasses = "-top-40"
     const openedClasses = "top-0"
 
@@ -43,7 +43,7 @@ export default function Layout({ children }) {
     return (
 
         // body container
-        <div className="relative flex flex-col w-screen">
+        <div className="relative flex flex-col justify-center w-screen">
 
             {/* header container */}
             <div
@@ -101,7 +101,6 @@ export default function Layout({ children }) {
                                         <a className={"bg-white m-1 shadow-lg pl-0.5"}
                                             onClick={() => {
                                                 setActivePath(path);
-                                                setSelectedItem(path)
                                             }}
                                             style={{
                                                 fontFamily: "'Kosugi', sans-serif",
@@ -180,7 +179,7 @@ export default function Layout({ children }) {
             {/* header end */}
 
             {/* main container */}
-            <div className="pt-20 h-screen overflow-visible max-w-3xl">
+            <div className="h-screen overflow-visible max-w-3xl">
                 {children}
             </div>
         </div>

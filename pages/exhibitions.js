@@ -17,6 +17,8 @@ export async function getStaticProps(context) {
         }
     }
 
+    data.reverse();
+
     return {
         props: { data }, // will be passed to the page component as props
     }
@@ -24,20 +26,11 @@ export async function getStaticProps(context) {
 
 export default function Exhibitions(props) {
 
-    const data = props.data
-// console.log(data)
-    // const exhibitions = Object.keys(data).map(key => data[key]);
-    // const e = data[38];
-    // console.log(e);
-
-
-
-    // console.log(data);
+    const data = [...props.data]
 
     return (
-        <div>
-            {data.map(e => <Exhibition key={e.id} e={e} />)}
-            
+        <div className="">
+            {data.map(e => <Exhibition key={e.id} e={e} />)}  
         </div>
     );
 }

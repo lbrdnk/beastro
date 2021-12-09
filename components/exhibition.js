@@ -6,45 +6,73 @@ const baseUrl = "http://localhost:1337"
 export default function Exhibition({ e }) {
 
     return (
-        <div className="flex justify-center items-center first:mt-4 mb-20 shadow-lg p-4">
+        <div className="flex flex-col justify-center items-center">
 
-            <div className="flex self-start ">
+            {/* invitation */}
+            <div className="w-full flex justify-center items-center"
+                style={{
+                    height: "calc(100vh - 88px)",
+                    position: "sticky",
+                    top: "80px",
+                }}
+            >
 
-                {/* invitation */}
-                <div className="m-2 w-full relative shadow-2xl m-2 bg-white"
+
+                <div className="w-full"
                     style={{
-                        width: parseInt(e.invitation.width / 6),
-                        height: parseInt(e.invitation.height / 6)
-                    }}    
+                        // position: "sticky",
+                        // top: "0%",
+                        // marginTop: "0px",
+                        // bottom: "0px"
+                    }}
                 >
-                    <Image
-                        src={baseUrl + e.invitation.url}
-                        width={parseInt(e.invitation.width)}
-                        height={parseInt(e.invitation.height)}
-                        fill="responsive"
-                        sources={parseInt(e.invitation.width) + "px"}
-                    />
-                </div>
 
+                    {/* invitation image */}
+                    <div className=" relative shadow-inset"
+                    // style={{
+                    //     width: parseInt(e.invitation.width / 6),
+                    //     height: "100%"
+                    // }}    
+                    >
+                        <Image
+                            src={baseUrl + e.invitation.url}
+                            width={parseInt(e.invitation.width)}
+                            height={parseInt(e.invitation.height)}
+                            layout="responsive"
+                            sources={"60vw"}
+                        />
+                    </div>
+
+                </div>
+                
             </div>
-            
+            {/* invitation end */}
+
             {/* photos */}
-            <div className="flex flex-wrap bg-white">
+            <div className="flex flex-col w-full justify-center space-y-4 p-4">
 
                 {e.photos.map(({ width, height, url }) => {
                     return (
-                        <div className="flex justify-center items-center w-5/12 p-4  m-2  relative shadow-2xl bg-white">
-                            <Image
-                                src={baseUrl + url}
-                                width={parseInt(width)}
-                                height={parseInt(height)}
-                                fill="responsive"
-                                sources={parseInt(width / 6) + "px"}
-                            />
+
+                        // photo frame
+                        <div className="z-20 bg-white flex justify-center items-center w-full p-4 shadow-lg">
+
+                            {/* photo */}
+                            <div key={url} className="w-full relative bg-white">
+                                <Image
+                                    src={baseUrl + url}
+                                    width={parseInt(width)}
+                                    height={parseInt(height)}
+                                    layout="responsive"
+                                    sources={"60vw"}
+                                />
+                            </div>
                         </div>
                     );
                 })}
             </div>
+            {/* photos end */}
+
         </div>
     )
 }
