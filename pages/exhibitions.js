@@ -29,8 +29,9 @@ export default function Exhibitions(props) {
     const data = [...props.data]
 
     return (
-        <div className="">
+        <div className="space-y-[calc(100vh-80px)]">
             {data.map(e => <Exhibition key={e.id} e={e} />)}  
+            {/* <div className="min-h-[100%]">x</div> */}
         </div>
     );
 }

@@ -19,6 +19,16 @@ const menuItems = [
     }
 ];
 
+// export default function Test({ children }) {
+//     return (
+//         <div className="h-[1000px]">
+//             <div>
+//                 ahoj
+//             </div>
+//         </div>
+//     )
+// }
+
 export default function Layout({ children }) {
 
     const [menuOpened, setMenuOpened] = useState(false);

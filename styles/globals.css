@@ -48,3 +48,13 @@ a {
 .xxx {
   animation-fill-mode: forwards;
 }
+
+/* body {
+  height: 100%;
+}
+html {
+  height: 100%;
+}
+#__next {
+  height:100%;
+} */
