@@ -114,24 +114,30 @@ export default function Layout({ children }) {
                         }}
                     >
 
-                        {/* beastroType img link */}
-                        <div className="bg-red-200 shadow-lg m-1"
-                            style={{
-                                width: parseInt(btWidth) + "px",
-                                height: parseInt(btHeight) + "px",
-                            }}
-                        >
-                            <div className="relative w-full h-full"
-
+                        <Link href="/">
+                            {/* beastroType img link */}
+                            <div className="bg-red-200 shadow-lg m-1"
+                                style={{
+                                    width: parseInt(btWidth) + "px",
+                                    height: parseInt(btHeight) + "px",
+                                }}
+                                onClick={() => {
+                                    setActivePath("/");
+                                    setMenuOpened(!menuOpened);
+                                }}
                             >
-                                <Image
-                                    src={beastroType}
-                                    layout="fill"
-                                    objectFit="cover"
-                                    priority
-                                />
+                                <div className="relative w-full h-full"
+
+                                >
+                                    <Image
+                                        src={beastroType}
+                                        layout="fill"
+                                        objectFit="cover"
+                                        priority
+                                    />
+                                </div>
                             </div>
-                        </div>
+                        </Link>
                         {/* beastroType img link end */}
                         {/* other nav links */}
                         {
