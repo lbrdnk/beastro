@@ -1,6 +1,6 @@
 import { Transition } from '@headlessui/react'
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 // import Header from './header'
@@ -14,8 +14,8 @@ const menuItems = [
         title: "Exhibitions"
     },
     {
-        path: "/moments",
-        title: "Moments"
+        path: "/magic",
+        title: "Magic"
     }
 ];
 
@@ -31,11 +31,13 @@ const menuItems = [
 
 export default function Layout({ children }) {
 
+    const menuRef = useRef(null);
+
     const [menuOpened, setMenuOpened] = useState(false);
 
     // const [selectedItem, setSelectedItem] = useState("/");
 
-    const headerBase = "fixed z-40 w-full h-60 transition-all duration-1000 "
+    const headerBase = "fixed z-40 w-full h-60 transition-all duration-700 "
     const closedClasses = "-top-40"
     const openedClasses = "top-0"
 
@@ -49,6 +51,36 @@ export default function Layout({ children }) {
     const btHeight = 64;
     const btWidth = parseInt(btHeight * beastroType.width / beastroType.height);
 
+    // useEffect(() => {
+    //     console.log(menuRef)
+    //     const handleOutMenuClick = (e) => {
+    //         console.log(e)
+    //         console.log(menuRef.current.contains(e.target))
+    //     }
+
+    //     if (document)
+    //     document.addEventListener("click", handleOutMenuClick)
+
+    //     return () => document.removeEventListener("click", handleOutMenuClick)
+    // })
+
+    useEffect(() => {
+        const clickHandler = (e) => {
+            if (!menuRef.current.contains(e.target)) {
+                setMenuOpened(!menuOpened)
+            }
+        }
+        if (menuOpened) {
+            console.log("add")
+            document.addEventListener("click", clickHandler);
+            return () => { console.log("rem"); document.removeEventListener("click", clickHandler) };
+        }
+    }, [menuOpened])
+
+    const menuClickHandler = (e) => {
+        // console.log("in click")
+        setMenuOpened(!menuOpened)
+    }
 
     return (
 
@@ -57,6 +89,7 @@ export default function Layout({ children }) {
 
             {/* header container */}
             <div
+                ref={menuRef}
                 className={
                     headerBase
                     + " "
@@ -104,13 +137,13 @@ export default function Layout({ children }) {
                         {
                             menuItems.map(({ path, title }) => {
                                 return (
-
-                                    <Link key={title} href={path} onClick={() => {
-                                        setActivePath(path)
-                                    }}>
+                                    // link functions created with 
+                                    <Link key={title} href={path}>
                                         <a className={"bg-white m-1 shadow-lg pl-0.5"}
                                             onClick={() => {
+                                                // path kvoli zvyraznovaniu v menu
                                                 setActivePath(path);
+                                                menuClickHandler()
                                             }}
                                             style={{
                                                 fontFamily: "'Kosugi', sans-serif",
@@ -169,9 +202,7 @@ export default function Layout({ children }) {
                         }}
                     >
                         <div className="relative shadow-lg"
-                            onClick={() => {
-                                setMenuOpened(!menuOpened);
-                            }}
+                            onClick={menuClickHandler}
                             style={{ width: squareWidth, height: sqaureHeight }}
                         >
                             <Image
@@ -189,7 +220,9 @@ export default function Layout({ children }) {
             {/* header end */}
 
             {/* main container */}
-            <div className="h-screen overflow-visible max-w-3xl">
+            <div className="h-screen overflow-visible max-w-3xl"
+
+            >
                 {children}
             </div>
         </div>

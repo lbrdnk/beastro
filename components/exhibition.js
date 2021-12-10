@@ -17,7 +17,7 @@ export default function Exhibition({ e }) {
         }
     }, [ref])
 
-    console.log(e.invitation)
+    // console.log(e.invitation)
 
     return (
         <div className="flex flex-col justify-center items-center">
@@ -33,20 +33,18 @@ export default function Exhibition({ e }) {
                 {e.photos.map(({ width, height, url }) => {
                     return (
 
-                        // photo frame
-                        <div key={url} className="z-20 bg-white flex justify-center items-center w-full p-4 shadow-lg">
+                        // photo frame -- shadow
+//                        <div key={url} className="z-20 bg-white w-full p-2 shadow-2xl">
 
-                            {/* photo */}
-                            <div key={url} className="w-full relative bg-white">
+                            <div key={url} className="w-full z-20 relative shadow-2xl p-2 bg-white">
                                 <Image
                                     src={baseUrl + url}
                                     width={parseInt(width)}
                                     height={parseInt(height)}
                                     layout="responsive"
-                                    sources={"60vw"}
+                                    sources={"100vw"}
                                 />
                             </div>
-                        </div>
                     );
                 })}
             </div>
