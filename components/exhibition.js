@@ -19,6 +19,31 @@ export default function Exhibition({ e }) {
 
     // console.log(e.invitation)
 
+    // ! TODO natvrdo vypocitat exhibition width / height
+    // TODO ref or state
+    let usableBox = useRef([0, 0]);
+    useEffect(() => {
+            
+        usableBox.current = [window.innerWidth, window.innerHeight];
+        
+            // return usableBox
+            // console.log(window.innerWidth)
+            // console.log(window.innerHeight)
+    })
+
+    // height max = usableBox[1] - <height of visible header part>
+    // width  max = md-screen || full screen
+
+    // TODO refactor
+    const headerSize = 80;
+    const maxInvBoxHeight = usableBox.current[1] - headerSize;
+    const maxInvBoxWidth = usableBox.current[0];
+    console.log([maxInvBoxHeight, maxInvBoxWidth])
+
+
+    // fill it with pic -- responsive?
+
+
     return (
         <div className="flex flex-col justify-center items-center">
 
@@ -34,17 +59,17 @@ export default function Exhibition({ e }) {
                     return (
 
                         // photo frame -- shadow
-//                        <div key={url} className="z-20 bg-white w-full p-2 shadow-2xl">
+                        //                        <div key={url} className="z-20 bg-white w-full p-2 shadow-2xl">
 
-                            <div key={url} className="w-full z-20 relative shadow-2xl p-2 bg-white">
-                                <Image
-                                    src={baseUrl + url}
-                                    width={parseInt(width)}
-                                    height={parseInt(height)}
-                                    layout="responsive"
-                                    sources={"100vw"}
-                                />
-                            </div>
+                        <div key={url} className="w-full z-20 relative shadow-2xl p-2 bg-white">
+                            <Image
+                                src={baseUrl + url}
+                                width={parseInt(width)}
+                                height={parseInt(height)}
+                                layout="responsive"
+                                sources={"100vw"}
+                            />
+                        </div>
                     );
                 })}
             </div>
@@ -54,7 +79,10 @@ export default function Exhibition({ e }) {
                 <div className="sticky w-full flex justify-center items-center"
                     style={{
                         // TODO pridat clamp aby to bolo od hora max kusok
-                        bottom: `calc(calc(100vh - 80px) / 2 - ${dimensions[1] / 2}px)`
+                        bottom: `calc(calc(100vh - 80px) / 2 - ${dimensions[1] / 2}px)`,
+
+                        height: maxInvBoxHeight + "px",
+                        width: maxInvBoxHeight + "px"
                     }}
                 >
                     <div

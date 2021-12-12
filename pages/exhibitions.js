@@ -9,8 +9,6 @@ export async function getStaticProps(context) {
     const res = await fetch(baseUrl + "/exhibitions");
     const data = await res.json()
 
-    // console.log(data[0])
-
     if (!data) {
         return {
             notFound: true,

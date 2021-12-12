@@ -19,38 +19,31 @@ export async function getStaticProps(context) {
     }
 }
 
+// TODO responsive mobile image
 export default function Home({ data }) {
 
     const { width, height } = data;
 
     return (
 
-        <div className="p-2">
-            {/* using separate div to avoid box-shadow color inversion */}
-
-            <div className="shadow-lg">
-                {/* following div sets width and height for next/image that has layout=fill */}
-                <div className="relative w-full filter invert"
-                    style={{
-                        height: height + "px"
-                    }}
-                >
-                    <Image
-                        src={"http://localhost:1337" + data.url}
-                        // width={width}
-                        // height={height}
-                        layout="fill"
-                        objectFit="cover"
-                        objectPosition="-530px 0%"
-                        // className="block h-full w-full filter invert"
-                        // style={{
-                        //     objectPosition: "",
-                        //     objectFit: "cover",
-                        //     height: "100%"
-                        // }}
-                        priority
-                        quality={100}
-                    />
+        <div className="w-full mt-20 flex flex-col items-center">
+            <div className="w-full max-w-2xl p-2">
+                <div className="w-full shadow-2xl p-2">
+                    <div className="w-full relative filter invert"
+                        style={{
+                            height: height + "px",
+                            // width: width + "px"
+                        }}
+                    >
+                        <Image
+                            src={"http://localhost:1337" + data.url}
+                            layout="fill"
+                            objectFit="cover"
+                            // objectPosition="-530px 0%"
+                            priority
+                            quality={100}
+                        />
+                    </div>
                 </div>
             </div>
         </div>
