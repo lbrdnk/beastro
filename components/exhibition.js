@@ -30,7 +30,7 @@ function useWindowDimensions() {
         return () => window.addEventListener("resize", updateWindowDimensions)
     }, [])
 
-    console.log("dim", dimensions)
+    // console.log("dim", dimensions)
 
     return dimensions;
 }
@@ -48,7 +48,7 @@ export default function Exhibition({ e }) {
         ({
             width: imageUsedWidth,
             height: imageUsedHeight
-        } = getBoxFittingDimensions(innerWidth, innerHeight - headerSize, imageOrigWidth, imageOrigHeight));
+        } = getBoxFittingDimensions(Math.min(innerWidth, 768), innerHeight - headerSize, imageOrigWidth, imageOrigHeight));
     }
 
     // console.log(image)
@@ -67,8 +67,8 @@ export default function Exhibition({ e }) {
             >
                 {/* toto sa neupdatne pri zmene velkosti okna? */}
                 {e.photos.map(({ width, height, url }) => {
-                    console.log("update")
-                    const availWidth = innerWidth;
+                    // console.log("update")
+                    const availWidth = Math.min(innerWidth, 768);
                     const availHeight = innerHeight - headerSize;
                     const {
                         width: imageUsedWidth,
