@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-import beastroType from '../public_tmp/img/beastro_type.jpg';
-import beastroSquare from '../public_tmp/img/beastro_square.jpg';
+import beastroType from '../public/beastro_type.jpg';
+import beastroSquare from '../public/beastro_square.jpg';
 
 const menuItems = [
     {

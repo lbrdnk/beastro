@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 
-import invitation from '../public_tmp/BEASTRO_pozvánka_2021_pizzitelli.jpg'
+// import invitation from '../public_tmp/BEASTRO_pozvánka_2021_pizzitelli.jpg'
 
 const baseUrl = process.env.CMS_BASE_URL;
 
