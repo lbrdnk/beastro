@@ -3,28 +3,30 @@ import Image from 'next/image'
 
 // import invitation from '../public_tmp/BEASTRO_pozvánka_2021_pizzitelli.jpg'
 
-const baseUrl = process.env.CMS_BASE_URL;
+import hero from "../public/index_hero.jpg";
 
-export async function getStaticProps(context) {
+// const baseUrl = process.env.CMS_BASE_URL;
 
-    const res = await fetch(`${baseUrl}/upload/files/49`);
-    const data = await res.json()
+// export async function getStaticProps(context) {
 
-    if (!data) {
-        return {
-            notFound: true,
-        }
-    }
+//     const res = await fetch(`${baseUrl}/upload/files/49`);
+//     const data = await res.json()
 
-    return {
-        props: { data },
-    }
-}
+//     if (!data) {
+//         return {
+//             notFound: true,
+//         }
+//     }
+
+//     return {
+//         props: { data },
+//     }
+// }
 
 // TODO responsive mobile image
-export default function Home({ data }) {
+export default function Home({  }) {
 
-    const { width, height } = data;
+    const { width, height } = hero;
 
     return (
 
@@ -38,12 +40,12 @@ export default function Home({ data }) {
                         }}
                     >
                         <Image
-                            src={"http://localhost:1337" + data.url}
+                            src={hero}
                             layout="fill"
                             objectFit="cover"
                             // objectPosition="-530px 0%"
                             priority
-                            quality={100}
+                            quality={50}
                         />
                     </div>
                 </div>

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 
 const baseUrl = `${process.env.CMS_BASE_URL}/moments`
+const loginUrl = `${process.env.CMS_BASE_URL}/auth/local`
 
 function getBoxFittingDimensions(availWidth, availHeight, imageWidth, imageHeight) {
 
@@ -36,7 +37,28 @@ function useWindowDimensions() {
 
 export async function getStaticProps(context) {
 
-    const res = await fetch(baseUrl);
+    // console.log(baseUrl)
+
+    const loginResponse = await fetch(loginUrl, {
+        method: "POST",
+        headers: new Headers({
+            'Content-Type': 'application/json'
+        }),
+        body: JSON.stringify({
+            identifier: process.env.API_USER,
+            password: process.env.API_PASSWORD
+        })
+    })
+    const loginResponseJson = await loginResponse.json()
+    const token = loginResponseJson.jwt
+
+
+    const res = await fetch(baseUrl, {
+        headers: new Headers({
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        })
+    });
     const data = await res.json()
 
     if (!data) {
@@ -52,11 +74,13 @@ export async function getStaticProps(context) {
     }
 }
 
-export default function Moments({ data }) {
+export default function Moments(props) {
+
+    // console.log(props)
 
     const headerHeight = 80;
 
-    const moments = [...data]
+    const moments = [...props.data]
 
     const { width: innerWidth, height: innerHeight } = useWindowDimensions();
 
@@ -74,7 +98,7 @@ export default function Moments({ data }) {
             {/* photo container */}
             <div className="flex flex-row flex-wrap w-full max-w-3xl justify-center items-center">
 
-                {data.map(({ photos }) => {
+                {props.data.map(({ photos }) => {
                     photos.reverse();
 
 
