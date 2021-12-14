@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
-const baseUrl = "http://localhost:1337/moments"
+
+const baseUrl = `${process.env.CMS_BASE_URL}/moments`
 
 function getBoxFittingDimensions(availWidth, availHeight, imageWidth, imageHeight) {
 

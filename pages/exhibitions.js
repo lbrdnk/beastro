@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import Exhibition from "../components/exhibition"
 
-const baseUrl = "http://localhost:1337"
+const baseUrl = process.env.CMS_BASE_URL;
 
 export async function getStaticProps(context) {
 

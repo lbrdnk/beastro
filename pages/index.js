@@ -3,9 +3,11 @@ import Image from 'next/image'
 
 import invitation from '../public_tmp/BEASTRO_pozvánka_2021_pizzitelli.jpg'
 
+const baseUrl = process.env.CMS_BASE_URL;
+
 export async function getStaticProps(context) {
 
-    const res = await fetch("http://localhost:1337/upload/files/49");
+    const res = await fetch(`${baseUrl}/upload/files/49`);
     const data = await res.json()
 
     if (!data) {
