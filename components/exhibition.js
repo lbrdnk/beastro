@@ -57,6 +57,7 @@ export default function Exhibition({ e }) {
                                     height={parseInt(height)}
                                     layout="responsive"
                                     sources={"100vw"}
+                                    priority
                                 />
                             </div>
                         </div>
@@ -85,6 +86,7 @@ export default function Exhibition({ e }) {
                             height={parseInt(e.invitation.height)}
                             layout="responsive"
                             sources={"60vw"}
+                            priority
                         />
                     </div>
                 </div>

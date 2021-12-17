@@ -82,6 +82,7 @@ export default function Moments({
                                         height={photo.height}
                                         layout="responsive"
                                         sizes={"100vw"}
+                                        priority
                                     />
                                 </div>
                             </div>

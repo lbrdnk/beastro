@@ -3,8 +3,6 @@ import Image from "next/image";
 import Exhibition from "../components/exhibition"
 import { getApiAccessToken } from "../lib/utils";
 
-const loginUrl = `${process.env.CMS_BASE_URL}/auth/local`
-
 export async function getStaticProps(context) {
 
     const token = await getApiAccessToken();
