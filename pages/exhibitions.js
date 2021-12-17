@@ -1,40 +1,31 @@
 import Image from "next/image";
 
 import Exhibition from "../components/exhibition"
+import { getApiAccessToken } from "../lib/utils";
 
-const baseUrl = process.env.CMS_BASE_URL;
 const loginUrl = `${process.env.CMS_BASE_URL}/auth/local`
 
 export async function getStaticProps(context) {
 
-    const loginResponse = await fetch(loginUrl, {
-        method: "POST",
-        headers: new Headers({
-            'Content-Type': 'application/json'
-        }),
-        body: JSON.stringify({
-            identifier: process.env.API_USER,
-            password: process.env.API_PASSWORD
-        })
-    })
-    const loginResponseJson = await loginResponse.json()
-    const token = loginResponseJson.jwt
+    const token = await getApiAccessToken();
 
-
-    const res = await fetch(baseUrl + "/exhibitions", {
+    const response = await fetch(
+        process.env.NEXT_PUBLIC_CMS_BASE_URL
+        + "/exhibitions?"
+        + new URLSearchParams({ _limit: 5 }), {
         headers: new Headers({
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
         })
     });
-    const data = await res.json()
 
-    if (!data) {
-        return {
-            notFound: true,
-        }
+    if (response.status !== 200) {
+        throw(new Error(`Authentication returned ${response.status}`))
     }
 
+    const data = await response.json()
+
+    // TODO remove?
     data.reverse();
 
     return {

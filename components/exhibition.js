@@ -1,41 +1,7 @@
 import { useState, useEffect, useRef } from "react";
+import { getBoxFittingDimensions, useWindowDimensions } from "../lib/utils"
 import Image from "next/image";
 
-const baseUrl = "http://localhost:1337"
-
-// potrebujem toto -- nestaci mi next/image fill mode? asi ne
-function getBoxFittingDimensions(availWidth, availHeight, imageWidth, imageHeight) {
-
-    const coef = Math.max(imageWidth / availWidth, imageHeight / availHeight);
-    // sem clamp min
-    const width = parseInt(Math.ceil(imageWidth / coef));
-    const height = parseInt(Math.ceil(imageHeight / coef));
-
-    // console.log(availWidth, availHeight, imageWidth, imageHeight, width, height)
-
-    return { width, height }
-}
-
-function useWindowDimensions() {
-
-    const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-
-    useEffect(() => {
-        const updateWindowDimensions = () => {
-            const { innerWidth: width, innerHeight: height } = window;
-            setDimensions({ width, height })
-        };
-        updateWindowDimensions()
-        window.addEventListener("resize", updateWindowDimensions)
-        return () => window.addEventListener("resize", updateWindowDimensions)
-    }, [])
-
-    // console.log("dim", dimensions)
-
-    return dimensions;
-}
-
-// 1. check proportions of invitation
 export default function Exhibition({ e }) {
 
     const { width: innerWidth, height: innerHeight } = useWindowDimensions()
@@ -51,8 +17,6 @@ export default function Exhibition({ e }) {
         } = getBoxFittingDimensions(Math.min(innerWidth, 768), innerHeight - headerSize, imageOrigWidth, imageOrigHeight));
     }
 
-    // console.log(image)
-
     return (
         // container
         <div className="flex flex-col justify-center items-center">
@@ -66,7 +30,7 @@ export default function Exhibition({ e }) {
                 }
             >
                 {/* toto sa neupdatne pri zmene velkosti okna? */}
-                {e.photos.map(({ width, height, url }) => {
+                {e.opening_record.map(({ width, height, url }) => {
                     // console.log("update")
                     const availWidth = Math.min(innerWidth, 768);
                     const availHeight = innerHeight - headerSize;
@@ -88,7 +52,7 @@ export default function Exhibition({ e }) {
 
                             >
                                 <Image
-                                    src={baseUrl + url}
+                                    src={process.env.NEXT_PUBLIC_CMS_BASE_URL + url}
                                     width={parseInt(width)}
                                     height={parseInt(height)}
                                     layout="responsive"
@@ -102,7 +66,7 @@ export default function Exhibition({ e }) {
             {/* photos end */}
 
             {e.invitation && (
-                <div className={`X${imageUsedWidth} Y${imageUsedHeight} sticky w-full flex justify-center items-center`}
+                <div className={`sticky w-full flex justify-center items-center`}
                     style={{
                         bottom: `calc(calc(100vh - 80px) / 2 - ${imageUsedHeight / 2}px)`,
                         width: imageUsedWidth + "px",
@@ -116,7 +80,7 @@ export default function Exhibition({ e }) {
                         }}
                     >
                         <Image
-                            src={baseUrl + e.invitation.url}
+                            src={process.env.NEXT_PUBLIC_CMS_BASE_URL + e.invitation.url}
                             width={parseInt(e.invitation.width)}
                             height={parseInt(e.invitation.height)}
                             layout="responsive"
@@ -125,9 +89,6 @@ export default function Exhibition({ e }) {
                     </div>
                 </div>
             )}
-            {/* popisok */}
-            {/* <div>{e.description}</div> */}
-
         </div>
     )
 }

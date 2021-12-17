@@ -1,86 +1,42 @@
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 import Image from "next/image";
-
-const baseUrl = `${process.env.CMS_BASE_URL}/moments`
-const loginUrl = `${process.env.CMS_BASE_URL}/auth/local`
-
-function getBoxFittingDimensions(availWidth, availHeight, imageWidth, imageHeight) {
-
-    const coef = Math.max(imageWidth / availWidth, imageHeight / availHeight);
-    // sem clamp min
-    const width = parseInt(Math.ceil(imageWidth / coef));
-    const height = parseInt(Math.ceil(imageHeight / coef));
-
-    // console.log(availWidth, availHeight, imageWidth, imageHeight, width, height)
-
-    return { width, height }
-}
-
-function useWindowDimensions() {
-
-    const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-
-    useEffect(() => {
-        const updateWindowDimensions = () => {
-            const { innerWidth: width, innerHeight: height } = window;
-            setDimensions({ width, height })
-        };
-        updateWindowDimensions()
-        window.addEventListener("resize", updateWindowDimensions)
-        return () => window.addEventListener("resize", updateWindowDimensions)
-    }, [])
-
-    // console.log("dim", dimensions)
-
-    return dimensions;
-}
+import { getApiAccessToken, getBoxFittingDimensions, useWindowDimensions } from "../lib/utils";
 
 export async function getStaticProps(context) {
 
-    // console.log(baseUrl)
-
-    const loginResponse = await fetch(loginUrl, {
-        method: "POST",
-        headers: new Headers({
-            'Content-Type': 'application/json'
-        }),
-        body: JSON.stringify({
-            identifier: process.env.API_USER,
-            password: process.env.API_PASSWORD
-        })
-    })
-    const loginResponseJson = await loginResponse.json()
-    const token = loginResponseJson.jwt
+    const token = await getApiAccessToken();
 
 
-    const res = await fetch(baseUrl, {
+    const response = await fetch(
+        process.env.NEXT_PUBLIC_CMS_BASE_URL
+        + "/moments?"
+        + new URLSearchParams({ _limit: 50 }), {
         headers: new Headers({
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
         })
     });
-    const data = await res.json()
 
-    if (!data) {
-        return {
-            notFound: true,
-        }
+    if (response.status !== 200) {
+        throw (new Error(`Authentication returned ${response.status}`))
     }
 
-    // data.reverse();
+    const data = await response.json();
+
+    // TODO remove?
+    data.reverse();
 
     return {
-        props: { data }, // will be passed to the page component as props
+        props: {
+            data,
+        }
     }
 }
 
-export default function Moments(props) {
-
-    // console.log(props)
-
+export default function Moments({
+    ...props
+}) {
     const headerHeight = 80;
-
-    const moments = [...props.data]
 
     const { width: innerWidth, height: innerHeight } = useWindowDimensions();
 
@@ -88,19 +44,16 @@ export default function Moments(props) {
     const availHeight = innerHeight - headerHeight;
 
 
-
-
     return (
 
         // main container
         <div className="mt-20 flex flex-row w-full justify-center items-center">
-
             {/* photo container */}
             <div className="flex flex-row flex-wrap w-full max-w-3xl justify-center items-center">
 
                 {props.data.map(({ photos }) => {
-                    photos.reverse();
 
+                    photos.reverse();
 
                     return photos.map((photo, index) => {
 
@@ -120,11 +73,11 @@ export default function Moments(props) {
                                     key={photo.id}
                                     className="relative bg-white shadow-xl"
                                     style={{
-                                        
+
                                     }}
                                 >
                                     <Image
-                                        src={"http://localhost:1337" + photo.url}
+                                        src={process.env.NEXT_PUBLIC_CMS_BASE_URL + photo.url}
                                         width={photo.width}
                                         height={photo.height}
                                         layout="responsive"

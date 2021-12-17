@@ -1,29 +1,8 @@
 import Head from 'next/head'
 import Image from 'next/image'
 
-// import invitation from '../public_tmp/BEASTRO_pozvánka_2021_pizzitelli.jpg'
-
 import hero from "../public/index_hero.jpg";
 
-// const baseUrl = process.env.CMS_BASE_URL;
-
-// export async function getStaticProps(context) {
-
-//     const res = await fetch(`${baseUrl}/upload/files/49`);
-//     const data = await res.json()
-
-//     if (!data) {
-//         return {
-//             notFound: true,
-//         }
-//     }
-
-//     return {
-//         props: { data },
-//     }
-// }
-
-// TODO responsive mobile image
 export default function Home({  }) {
 
     const { width, height } = hero;
