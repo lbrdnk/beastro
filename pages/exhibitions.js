@@ -10,7 +10,7 @@ export async function getStaticProps(context) {
     const response = await fetch(
         process.env.NEXT_PUBLIC_CMS_BASE_URL
         + "/exhibitions?"
-        + new URLSearchParams({ _limit: 5 }), {
+        + new URLSearchParams({ _limit: 500 }), {
         headers: new Headers({
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
