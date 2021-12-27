@@ -1,8 +1,13 @@
 import { useState, useEffect, useRef } from "react";
+import React from "react";
 import { getBoxFittingDimensions, useWindowDimensions } from "../lib/utils"
 import Image from "next/image";
 
-export default function Exhibition({ e }) {
+const Exhibition = React.forwardRef(({ e, ...props }, ref) => {
+
+    // const rootRef = useRef(null)
+    // setRef(rootRef);
+    // console.log(ref)
 
     const { width: innerWidth, height: innerHeight } = useWindowDimensions()
 
@@ -19,7 +24,9 @@ export default function Exhibition({ e }) {
 
     return (
         // container
-        <div className="flex flex-col justify-center items-center">
+        // ref for scroll into view
+        <div ref={ref} 
+        className="flex flex-col justify-center items-center bg-green-200">
 
             {/* photos container*/}
             <div
@@ -95,4 +102,6 @@ export default function Exhibition({ e }) {
             )}
         </div>
     )
-}
+})
+
+export default Exhibition

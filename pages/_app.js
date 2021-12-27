@@ -15,9 +15,9 @@ function MyApp({ Component, pageProps }) {
         <meta httpEquiv="ScreenOrientation" content="autoRotate:disabled"></meta>
 
         {/* Kosugi font */}
-        {/* <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
-        <link href="https://fonts.googleapis.com/css2?family=Kosugi&display=swap" rel="stylesheet" /> */}
+        <link href="https://fonts.googleapis.com/css2?family=Kosugi&display=swap" rel="stylesheet" />
 
       </Head>
       <Layout>
