@@ -111,7 +111,7 @@ export default function Header(props) {
                                                 setMenuOpened(!menuOpened)
                                             }}
                                             style={{
-                                                fontFamily: "'Kosugi', sans-serif",
+                                                // fontFamily: "'Kosugi', sans-serif",
                                                 fontSize: "1rem",
                                                 letterSpacing: "2px",
                                                 fontWeight: "bold",
@@ -191,7 +191,7 @@ export default function Header(props) {
 
         // <div className="sticky top-0 z-40 w-full flex justify-center bg-transparent fitler backdrop-blur-lg shadow-lg">
         <div className="sticky top-0 z-40 w-full flex justify-center bg-gray-50 shadow-lg h-20">
-            <div className="relative flex justify-start items-end max-w-5xl w-full"
+            <div className="relative flex justify-start items-end max-w-3xl w-full"
                 // style={{
                 //     height: Styling.headerHeightPx,
                 //     width: "768px"
@@ -200,7 +200,7 @@ export default function Header(props) {
 
                 <div className="flex w-1/2 justify-between ">
                     <Link href="/">
-                        <a>
+                        <a className="">
                             <Styling.Img
                                 src={beastroType}
                                 width={Styling.computeScaledDimension({
@@ -210,7 +210,7 @@ export default function Header(props) {
                                     height: 64
                                 }).width}
                                 height={64}
-                                className="shadow-lg mb-2"
+                                className="shadow-lg mb-2 border-b-4 border-purple-400"
                             />
                         </a>
                     </Link>
@@ -239,9 +239,9 @@ export default function Header(props) {
                     {menuItems.map(({ title, path }, index) => {
                         return (
                             <Link key={title} href={path}>
-                                <a className={"bg-white shadow-lg pl-0.5 mb-2"}
+                                <a className={"bg-white shadow-lg pl-0.5 mb-2 border-b-4 border-transparent hover:border-purple-400"}
                                     style={{
-                                        fontFamily: "'Kosugi', sans-serif",
+                                        // fontFamily: "'Kosugi', sans-serif",
                                         fontSize: "1rem",
                                         letterSpacing: "2px",
                                         fontWeight: "bold",
