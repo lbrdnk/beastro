@@ -59,7 +59,7 @@ export default function Header(props) {
             <div
                 ref={menuRef}
                 className={
-                    "fixed z-40 w-full h-60 transition-all duration-700 shadow-lg backdrop-blur-md"
+                    "fixed z-30 w-full h-60 transition-all duration-700 shadow-lg backdrop-blur-md"
                     + " "
                     + (menuOpened ? "top-0 bg-black/10" : "-top-40 bg-white/30")
                 }

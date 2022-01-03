@@ -115,41 +115,40 @@ const Exhibition = React.forwardRef(({
 
     return (
         <div ref={ref} className="flex flex-col w-full space-y-4 border-b-4 border-dashed border-gray-200 last:border-none pb-8">
-            <SRLWrapper>
-                <div className="flex flex-row w-full space-x-4">
-                    <div className="relative w-[384px]">
-                        <Image
-                            src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${invitationUrl}`}
-                            layout="responsive"
-                            width={invitationWidth}
-                            height={invitationHeight}
+            <div className="flex flex-row w-full space-x-4">
+                <div className="relative w-[384px]">
+                    <Image
+                        src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${invitationUrl}`}
+                        layout="responsive"
+                        width={invitationWidth}
+                        height={invitationHeight}
 
-                        />
-                    </div>
-                    <div className="flex-grow flex flex-col">
-                        {/* TODO gallery component */}
-                        {openingPhotos && openingPhotos.map(({ id, url, width, height }) => {
-
-                            return (
-                                // tmp w/h
-                                <div className="relative flex-grow flex-shrink">
-                                    <Image
-                                        src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${url}`}
-                                        layout="fill"
-                                        width={width}
-                                        height={height}
-                                        sources={"60vw"}
-                                        objectFit="cover"
-                                        quality={75}
-                                    />
-                                </div>
-                            );
-                        })}
-                    </div>
+                    />
                 </div>
-                <h1 className="text-6xl">{description}</h1>
-                {/*  */}
-                {/* <h1 className="text-6xl" style={{
+                <div className="flex-grow flex flex-col">
+                    {/* TODO gallery component */}
+                    {openingPhotos && openingPhotos.map(({ id, url, width, height }) => {
+
+                        return (
+                            // tmp w/h
+                            <div key={id} className="relative flex-grow flex-shrink">
+                                <Image
+                                    src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${url}`}
+                                    layout="fill"
+                                    // width={width}
+                                    // height={height}
+                                    sources={"60vw"}
+                                    objectFit="cover"
+                                    quality={75}
+                                />
+                            </div>
+                        );
+                    })}
+                </div>
+            </div>
+            <h1 className="text-6xl">{description}</h1>
+            {/*  */}
+            {/* <h1 className="text-6xl" style={{
                 // fontFamily: "'Kosugi', sans-serif",
                 // fontSize: "1rem",
                 // letterSpacing: "2px",
@@ -158,7 +157,6 @@ const Exhibition = React.forwardRef(({
                 // verticalAlign: "baseline"
                 // lineHeight: "32px"
             }}>Exhibitions</h1> */}
-            </SRLWrapper>
         </div>
     )
 

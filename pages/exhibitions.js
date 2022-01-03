@@ -6,6 +6,8 @@ import { getApiAccessToken } from "../lib/utils";
 
 import { useSWR } from "swr";
 
+import Lightbox from "../components/lightbox";
+
 
 
 export async function getStaticProps(context) {
@@ -109,16 +111,21 @@ export default function Exhibitions({ data }) {
 
 
 
+    const [isLightBoxOpened, setIsLightBoxOpened] = useState(false);
+
+    const openLightbox = () => setIsLightBoxOpened(true);
+    const closeLightbox = () => setIsLightBoxOpened(false);
 
 
 
-
-
-    console.log(data[0])
+    // console.log(data[0])
 
     return (
         // space-y-[calc(100vh-80px)]
         <div className="flex justify-center">
+
+            <div onClick={openLightbox}>open lightbox</div>
+            {isLightBoxOpened && <Lightbox images={data[1].opening.photos} closeFn={closeLightbox} />}
             {/* {newPageData.length} */}
 
             {/* navigacia */}
