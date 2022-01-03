@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const Thumbnails = ({ images, closeFn, ...props }) => {
     return (
-        <div className="bg-yellow-100 h-48 w-full self-center pl-[500px] flex justify-center space-x-4 overflow-x-scroll">
+        <div className="bg-yellow-100 h-48 w-full flex overflow-x-scroll">
 
             {images.map((img, idx) => {
                 // if (idx > 6) return null

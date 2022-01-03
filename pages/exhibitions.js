@@ -125,7 +125,7 @@ export default function Exhibitions({ data }) {
         <div className="flex justify-center">
 
             <div onClick={openLightbox}>open lightbox</div>
-            {isLightBoxOpened && <Lightbox images={data[1].opening.photos} closeFn={closeLightbox} />}
+            {isLightBoxOpened && <Lightbox images={data[0].opening.photos} closeFn={closeLightbox} />}
             {/* {newPageData.length} */}
 
             {/* navigacia */}
