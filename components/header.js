@@ -59,7 +59,7 @@ export default function Header(props) {
             <div
                 ref={menuRef}
                 className={
-                    "fixed z-30 w-full h-60 transition-all duration-700 shadow-lg backdrop-blur-md"
+                    "fixed z-20 w-full h-60 transition-all duration-700 shadow-lg backdrop-blur-md"
                     + " "
                     + (menuOpened ? "top-0 bg-black/10" : "-top-40 bg-white/30")
                 }
@@ -190,7 +190,7 @@ export default function Header(props) {
     return (
 
         // <div className="sticky top-0 z-40 w-full flex justify-center bg-transparent fitler backdrop-blur-lg shadow-lg">
-        <div className="sticky top-0 z-40 w-full flex justify-center bg-gray-50 shadow-lg h-20">
+        <div className="sticky top-0 z-20 w-full flex justify-center bg-gray-50 shadow-lg h-20">
             <div className="relative flex justify-start items-end max-w-3xl w-full"
                 // style={{
                 //     height: Styling.headerHeightPx,

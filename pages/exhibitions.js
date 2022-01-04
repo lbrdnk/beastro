@@ -116,20 +116,25 @@ export default function Exhibitions({ data }) {
     const openLightbox = () => setIsLightBoxOpened(true);
     const closeLightbox = () => setIsLightBoxOpened(false);
 
+    const [lightboxImages, setLightboxImages] = useState([]);
+    const [selectedLightboxImageId, setSelectedLightboxImageId] = useState(null);
+
 
 
     // console.log(data[0])
 
     return (
         // space-y-[calc(100vh-80px)]
-        <div className="flex justify-center">
+        <>
+            {isLightBoxOpened && <Lightbox initialSelectedId={selectedLightboxImageId} images={lightboxImages} closeFn={closeLightbox} />}
+            
+            <div className="flex justify-center">
 
-            <div onClick={openLightbox}>open lightbox</div>
-            {isLightBoxOpened && <Lightbox images={data[0].opening.photos} closeFn={closeLightbox} />}
-            {/* {newPageData.length} */}
+                {/* <div onClick={openLightbox}>open lightbox</div> */}
+                {/* {newPageData.length} */}
 
-            {/* navigacia */}
-            {/* 
+                {/* navigacia */}
+                {/* 
             <div className="sticky left-0 top-20 w-64 p-4 h-[calc(100vh-80px)]">
                 <div className="bg-gray-50 shadow-lg w-full h-full overflow-scroll">
                     <ul className="">
@@ -151,21 +156,27 @@ export default function Exhibitions({ data }) {
                 </div>
             </div> */}
 
-            <div className="flex-grow max-w-3xl space-y-20 m-8">
-                {data.map((e, i) => (
-                    <Exhibition key={e.id} e={e} ref={exRefs[i]}
-                        description={e.description}
-                        invitation={e.invitation}
-                        opening={e.opening}
-                    />)
-                )}
-            </div>
-            {/* {true ? newPageData.map((pageData, pageIndex) => {
+                <div className="flex-grow max-w-3xl space-y-20 m-8">
+                    {data.map((e, i) => (
+                        <Exhibition key={e.id} e={e} ref={exRefs[i]}
+                            description={e.description}
+                            invitation={e.invitation}
+                            opening={e.opening}
+                            openLightbox={(selectedImgId) => {
+                                setLightboxImages([e.invitation, ...e.opening.photos])
+                                setSelectedLightboxImageId(selectedImgId);
+                                setIsLightBoxOpened(true);
+                            }}
+                        />)
+                    )}
+                </div>
+                {/* {true ? newPageData.map((pageData, pageIndex) => {
                 true ? pageData.map((exhibition, exhibitionIndex) => <Exhibition key={exhibition.id}
                     e={exhibition} ref={exRefs[data.length + (pageIndex - 1) * 10 + exhibitionIndex]} />) : null
             }) : null} */}
-            {/* {newPageData.length} */}
+                {/* {newPageData.length} */}
 
-        </div>
+            </div>
+        </>
     );
 }

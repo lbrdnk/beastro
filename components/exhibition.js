@@ -7,9 +7,10 @@ import { SRLWrapper, useLightbox } from "simple-react-lightbox";
 
 
 const Exhibition = React.forwardRef(({
+    openLightbox,
     e,
     description,
-    invitation: { url: invitationUrl, width: invitationWidth, height: invitationHeight },
+    invitation: { url: invitationUrl, width: invitationWidth, height: invitationHeight, id: invitationId },
     opening: {
         photos: openingPhotos,
         dateTime: openingDateTime
@@ -113,10 +114,14 @@ const Exhibition = React.forwardRef(({
 
     // props -- description, invitation, opening/photos, date
 
+    // const openLightbox = () => setLightboxOp
+
     return (
-        <div ref={ref} className="flex flex-col w-full space-y-4 border-b-4 border-dashed border-gray-200 last:border-none pb-8">
+        <div ref={ref} className="flex flex-col w-full space-y-4 border-b-4 border-dashed border-gray-50 last:border-none pb-8">
             <div className="flex flex-row w-full space-x-4">
-                <div className="relative w-[384px]">
+                <div className="relative w-[384px]"
+                    onClick={() => openLightbox(invitationId)}
+                >
                     <Image
                         src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${invitationUrl}`}
                         layout="responsive"
@@ -131,7 +136,9 @@ const Exhibition = React.forwardRef(({
 
                         return (
                             // tmp w/h
-                            <div key={id} className="relative flex-grow flex-shrink">
+                            <div key={id} className="relative flex-grow flex-shrink"
+                                onClick={() => openLightbox(id)}
+                            >
                                 <Image
                                     src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${url}`}
                                     layout="fill"
