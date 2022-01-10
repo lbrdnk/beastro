@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { getApiAccessToken, getBoxFittingDimensions, useWindowDimensions } from "../lib/utils";
+import { getApiAccessToken, getBoxFittingDimensions, useWindowDimensions, groupByHeight } from "../lib/utils";
 
 export async function getStaticProps(context) {
 
@@ -35,38 +35,6 @@ export async function getStaticProps(context) {
     }
 }
 
-// TODO: adjust to shrinkage 
-const groupByHeight = (photoArr, colCount) => {
-
-    const groups = photoArr.reduce((accHeights, currPhoto) => {
-
-        const { minIdx } = accHeights.heights.reduce(({ curMin, minIdx }, curVal, curIdx) => (
-            curVal < curMin ? { curMin: curVal, minIdx: curIdx } : { curMin, minIdx }
-        ), {
-            curMin: Number.MAX_VALUE,
-            minIdx: -1
-        })
-
-        return {
-            heights: [
-                ...accHeights.heights.slice(0, minIdx),
-                accHeights.heights[minIdx] + currPhoto.height,
-                ...accHeights.heights.slice(minIdx + 1, accHeights.heights.length)
-            ],
-            groups: [
-                ...accHeights.groups.slice(0, minIdx),
-                [...accHeights.groups[minIdx], currPhoto],
-                ...accHeights.groups.slice(minIdx + 1, accHeights.groups.length)
-            ]
-        }
-    }, {
-        heights: Array(colCount).fill(0),
-        groups: Array(colCount).fill([])
-    });
-
-    return groups;
-}
-
 export default ({
     ...props
 }) => {
@@ -97,7 +65,7 @@ export default ({
                                         width={photo.width}
                                         height={photo.height}
                                         layout="responsive"
-                                        sizes={"10vw"}
+                                        sizes={"30vw"}
                                         lazyBoundary="1400px"
                                     />
                                 </div>

@@ -37,18 +37,17 @@ export async function getStaticProps(context) {
     const d2 = data.map(({ id = null, description = null, invitation = {}, opening_record = [], opening = null }) => ({
         id,
         description,
-        invitation: {
-            id: invitation.id,
-            url: invitation.url,
-            width: invitation.width,
-            height: invitation.height
-
-        },
+        invitation,
         opening: {
             photos: opening_record.map(({ id, url, width, height }) => ({ id, url, width, height })),
             dateTime: opening, // from arguments
         }
     }));
+
+    // const noInvIdx = d2.findIndex(({ description }) => description === "0037");
+    // if (noInvIdx === -1) {
+    //     throw new Error("Unable to find 0037 exhibition")
+    // }
 
     return {
         props: { data: d2 },
@@ -57,15 +56,7 @@ export async function getStaticProps(context) {
 
 export default function Exhibitions({ data }) {
 
-    // const props = {data}
 
-
-    // const fetcher = async (url) => await fetch(url).then((res) => res.data);
-
-    // const { data, error } = useSWR(`/api/exhibitions&page=1`, fetcher)
-
-    // if (error) return <div>error</div>
-    // if (!data) return <div>loading</div>
 
     const [page, setPage] = useState(1);
     const [newPageData, setNewPageData] = useState([])
@@ -113,7 +104,7 @@ export default function Exhibitions({ data }) {
 
     const [isLightBoxOpened, setIsLightBoxOpened] = useState(false);
 
-    const openLightbox = () => setIsLightBoxOpened(true);
+    // const openLightbox = () => setIsLightBoxOpened(true);
     const closeLightbox = () => setIsLightBoxOpened(false);
 
     const [lightboxImages, setLightboxImages] = useState([]);
@@ -127,7 +118,7 @@ export default function Exhibitions({ data }) {
         // space-y-[calc(100vh-80px)]
         <>
             {isLightBoxOpened && <Lightbox initialSelectedId={selectedLightboxImageId} images={lightboxImages} closeFn={closeLightbox} />}
-            
+
             <div className="flex justify-center">
 
                 {/* <div onClick={openLightbox}>open lightbox</div> */}
@@ -163,19 +154,18 @@ export default function Exhibitions({ data }) {
                             invitation={e.invitation}
                             opening={e.opening}
                             openLightbox={(selectedImgId) => {
-                                setLightboxImages([e.invitation, ...e.opening.photos])
+                                setLightboxImages(
+                                    e.invitation ? (
+                                        [e.invitation, ...e.opening.photos]
+                                    ) : (
+                                        [...e.opening.photos]
+                                    ))
                                 setSelectedLightboxImageId(selectedImgId);
                                 setIsLightBoxOpened(true);
                             }}
                         />)
                     )}
                 </div>
-                {/* {true ? newPageData.map((pageData, pageIndex) => {
-                true ? pageData.map((exhibition, exhibitionIndex) => <Exhibition key={exhibition.id}
-                    e={exhibition} ref={exRefs[data.length + (pageIndex - 1) * 10 + exhibitionIndex]} />) : null
-            }) : null} */}
-                {/* {newPageData.length} */}
-
             </div>
         </>
     );
