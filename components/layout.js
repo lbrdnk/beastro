@@ -78,12 +78,14 @@ export default function Layout({ children }) {
 
     // console.log(process.env.NODE_ENV)
 
+    const [isMenuOpened, setIsMenuOpened] = useState(false)
+
     return (
 
         <>
             {/* desktop or mobile */}
-            <Header layout={layout} />
-            {children}
+            <Header layout={layout} isMenuOpened={isMenuOpened} setIsMenuOpened={setIsMenuOpened} />
+                {children}
         </>
     )
 }

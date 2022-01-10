@@ -2,59 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-/* html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+@layer components {
+  .text-nav {
+    font-size: 1rem;
+    letter-spacing: 2px;
+    font-weight: bold;
+    height: 32px;
+    line-height: 32px;
+  }
 }
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
-} */
-
-/* body {
-  width: 100vw;
-  min-height: 100vh;
-} */
-
-/* html, body {
-  background-color: aqua;
-  height: 100%;
-} */
-
-.xbase {
-
-}
-
-.asdf {
-  background: linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
-            linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),
-            linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);
-            /* background-color: aqua; */
-}
-
-.fdsa {
-  background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
-  /* background-color: tomato; */
-}
-
-.xxx {
-  animation-fill-mode: forwards;
-}
-
-/* body {
-  height: 100%;
-}
-html {
-  height: 100%;
-}
-#__next {
-  height:100%;
-} */

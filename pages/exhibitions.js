@@ -147,7 +147,7 @@ export default function Exhibitions({ data }) {
                 </div>
             </div> */}
 
-                <div className="flex-grow max-w-3xl space-y-20 m-8">
+                <div className="flex-grow max-w-3xl space-y-20 m-2 sm:m-4">
                     {data.map((e, i) => (
                         <Exhibition key={e.id} e={e} ref={exRefs[i]}
                             description={e.description}
