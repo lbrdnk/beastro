@@ -56,96 +56,21 @@ export async function getStaticProps(context) {
 
 export default function Exhibitions({ data }) {
 
-
-
-    const [page, setPage] = useState(1);
-    const [newPageData, setNewPageData] = useState([])
-
-    // const data = [...props.data]
-
     // when adding new exhibition, update refs array
     const [exRefs, setExRefs] = useState(Array(data.length).fill().map(() => createRef()))
 
-    // useEffect(() => {
-    //     setExRefs(Array(data.length).fill(createRef()))
-    // }, [data.length])
-
-    // when new page is generated, new handler is used
-    // useEffect(() => {
-    //     const handler = async () => {
-
-    //         if (window.scrollY + window.innerHeight === document.body.offsetHeight) {
-
-
-
-    //             const data =  await fetch(`http://localhost:3000/api/exhibitions?page=${page+1}`)
-    //             // console.log(data)
-    //             const d2 = await data.json()
-    //             // console.log(d2)
-
-
-    //             setNewPageData([...newPageData, d2])
-    //             setPage(page + 1);
-    //             // console.log(d2)
-    //         }
-    //     }
-    //     document.addEventListener("scroll", handler)
-    //     return () => document.removeEventListener("scroll", handler)
-    // }, [])
-
-    // useEffect(() => {
-    //     console.log(newPageData)
-    //     console.log(page);
-    // })
-
-    // useEffect(() => { console.log(exRefs.length) })
-
-
-
+    // lightbox
     const [isLightBoxOpened, setIsLightBoxOpened] = useState(false);
-
-    // const openLightbox = () => setIsLightBoxOpened(true);
     const closeLightbox = () => setIsLightBoxOpened(false);
-
     const [lightboxImages, setLightboxImages] = useState([]);
     const [selectedLightboxImageId, setSelectedLightboxImageId] = useState(null);
 
 
-
-    // console.log(data[0])
-
     return (
-        // space-y-[calc(100vh-80px)]
         <>
             {isLightBoxOpened && <Lightbox initialSelectedId={selectedLightboxImageId} images={lightboxImages} closeFn={closeLightbox} />}
 
             <div className="flex justify-center">
-
-                {/* <div onClick={openLightbox}>open lightbox</div> */}
-                {/* {newPageData.length} */}
-
-                {/* navigacia */}
-                {/* 
-            <div className="sticky left-0 top-20 w-64 p-4 h-[calc(100vh-80px)]">
-                <div className="bg-gray-50 shadow-lg w-full h-full overflow-scroll">
-                    <ul className="">
-                        {data.map((exhibition, index) => {
-                            return (
-                                <li
-                                    key={exhibition.id}
-                                    onClick={e => {
-                                        // console.log(exRefs[index].current)
-                                        console.log(exRefs)
-                                        exRefs[index].current.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" })
-                                    }}
-                                >
-                                    <span className="">{exhibition.description}</span>
-                                </li>
-                            )
-                        })}
-                    </ul>
-                </div>
-            </div> */}
 
                 <div className="flex-grow max-w-3xl space-y-20 m-2 sm:m-4">
                     {data.map((e, i) => (
@@ -170,3 +95,30 @@ export default function Exhibitions({ data }) {
         </>
     );
 }
+
+
+//     {/* <div onClick={openLightbox}>open lightbox</div> */}
+//     {/* {newPageData.length} */}
+
+//     {/* navigacia */}
+//     {/* 
+// <div className="sticky left-0 top-20 w-64 p-4 h-[calc(100vh-80px)]">
+//     <div className="bg-gray-50 shadow-lg w-full h-full overflow-scroll">
+//         <ul className="">
+//             {data.map((exhibition, index) => {
+//                 return (
+//                     <li
+//                         key={exhibition.id}
+//                         onClick={e => {
+//                             // console.log(exRefs[index].current)
+//                             console.log(exRefs)
+//                             exRefs[index].current.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" })
+//                         }}
+//                     >
+//                         <span className="">{exhibition.description}</span>
+//                     </li>
+//                 )
+//             })}
+//         </ul>
+//     </div>
+// </div> */}

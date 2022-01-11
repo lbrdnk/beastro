@@ -234,13 +234,11 @@ const LandscapeFlyer = ({ rootRef, invitation, images, description, openLightbox
     )
 }
 
-// WIP
+// DONE -- hotovo, neni to responzivne, neriesi to pripad ak je vela obrazkov, width 0 bude
 const Stripes2 = ({ rootRef, invitation, images, description, openLightbox }) => {
-    // console.log(images)
     return (
 
         <div
-            // ref={rootRef}
             className="flex flex-col w-full space-y-4 border-b-4 border-dashed pb-8 border-gray-50 last:border-none"
         >
 
@@ -269,9 +267,9 @@ const Stripes2 = ({ rootRef, invitation, images, description, openLightbox }) =>
                                     src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${img.url}`}
                                     layout="fill"
                                     objectFit="cover"
-                                    // objectPosition="center bottom"
-                                    // width={img.width}
-                                    // height={img.height}
+                                // objectPosition="center bottom"
+                                // width={img.width}
+                                // height={img.height}
 
                                 />
                             </div>
@@ -280,10 +278,90 @@ const Stripes2 = ({ rootRef, invitation, images, description, openLightbox }) =>
                 </div>
             </div>
 
-            <h1 className="text-6xl">{description}</h1>
+            <h1 className="text-4xl text-gray-900">{description}</h1>
         </div>
     )
 }
+
+// DONE -- na telefone to vyzera pouzitelne, dalej desktop a landscape/stvorec
+const StripesSticky = ({ rootRef, invitation, images, description, openLightbox }) => {
+
+    const invitationRef = useRef(null);
+    const [invitationBoundingRect, setInvitationBoundingRect] = useState(null);
+
+    // na toto mi netreba effect?
+    // useEffect(() => {
+    //     if (invitationBoundingRect) {
+    //         console.log(invitationBoundingRect.getBoundingClientRect());
+    //     }
+    // }, [invitationBoundingRect])
+
+    let invitationHeight = 0;
+    let invitationWidth = 0;
+    if (invitationBoundingRect) {
+        invitationHeight = invitationBoundingRect.getBoundingClientRect().height;
+        invitationWidth = invitationBoundingRect.getBoundingClientRect().width;
+    }
+
+
+    return (
+
+        <div
+            className="flex flex-col w-full space-y-4 border-b-4 border-dashed pb-8 border-gray-50 last:border-none"
+        >
+            <div className="flex w-full flex-row items-start gap-x-2">
+
+                {invitation ? (
+
+                    <div ref={invitationRef} className="sticky top-[84px] w-1/2">
+                        <Image
+                            src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${invitation.url}`}
+                            width={invitation.width}
+                            height={invitation.height}
+                            layout="responsive"
+                            // objectFit="cover"
+                            onClick={() => openLightbox(invitation.id)}
+                            onLoadingComplete={() => setInvitationBoundingRect(invitationRef.current)}
+                        />
+                    </div>
+                ) : (
+                    null
+                )}
+
+                {images ? (
+                    <div className="flex w-1/2 flex-wrap gap-2 justify-end">
+                        {images.map(img => {
+
+                            return (
+                                <div
+                                    className="relative flex-grow shadow-xl"
+                                    onClick={() => openLightbox(img.id)}
+                                    style={{
+                                        height: `${invitationHeight > 256 ? invitationHeight : 384}px`,
+                                        width: "32px",
+                                    }}
+                                >
+                                    <Image
+                                        src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${img.url}`}
+                                        layout="fill"
+                                        objectFit="cover"
+                                        // objectPosition="50% 50px"
+                                    // width={img.width}
+                                    // height={img.height}
+                                    />
+                                </div>
+                                // null
+                            )
+                        })}
+                    </div>
+                ) : null}
+            </div>
+
+            <h1 className="text-4xl text-gray-900">{description}</h1>
+        </div>
+    )
+}
+
 
 
 const Exhibition = React.forwardRef(({
@@ -489,7 +567,7 @@ const Exhibition2 = React.forwardRef(({
 
     // props -- description, invitation, opening/photos, date
     return (
-        <Stripes2
+        <StripesSticky
             rootRef={ref}
             invitation={invitation}
             images={opening.photos}

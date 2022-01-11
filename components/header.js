@@ -63,6 +63,7 @@ export default function Header({ isMenuOpened, setIsMenuOpened, ...props }) {
                             }
                             height={64}
                             className="shadow-lg mb-2"
+                            priority
                         />
                     </a>
                 </Link>
@@ -166,9 +167,9 @@ export default function Header({ isMenuOpened, setIsMenuOpened, ...props }) {
 // ≡
 
 
-// old header function
+// old header function -- mobile blur
 
-// export default function Header(props) {
+// export default function Header2(props) {
 
 //     // const mode = props.layoutMode
 //     // console.log(mode)
@@ -203,8 +204,8 @@ export default function Header({ isMenuOpened, setIsMenuOpened, ...props }) {
 //     // MOBILE DATA END
 
 //     // TODO remove: old mobile header
-//     if (false) {
-//         if (layout === "mobile") {
+//     // if (false) {
+//     //     if (layout === "mobile") {
 
 //             return (
 //                 <div
@@ -335,8 +336,8 @@ export default function Header({ isMenuOpened, setIsMenuOpened, ...props }) {
 //                 </div>
 //             )
 
-//         }
-//     }
+//     //     }
+//     // }
 
 //     return (
 

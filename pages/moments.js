@@ -43,14 +43,14 @@ export default ({
 
     const allPhotos = ms.map(m => [...m.photos]).flat()
 
-    const gs = groupByHeight(allPhotos, 5).groups;
+    const gs = groupByHeight(allPhotos, 3).groups;
 
     return (
 
         // main container
         <div className="flex flex-row w-full justify-center items-start p-4 ">
             {/* photo container */}
-            <div className="flex flex-row w-full justify-center items-stretch max-w-5xl space-x-4">
+            <div className="flex flex-row w-full justify-center items-stretch max-w-3xl space-x-4">
 
                 {gs.map((colPhotoArr, idx) => {
                     return (

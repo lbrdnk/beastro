@@ -9,10 +9,10 @@ export default function Home({  }) {
 
     return (
 
-        <div className="w-full mt-20 flex flex-col items-center">
+        <div className="w-full flex flex-col items-center">
             <div className="w-full max-w-2xl p-2">
                 <div className="w-full shadow-2xl p-2">
-                    {/* <div className="w-full relative filter invert"
+                    <div className="w-full relative filter invert"
                         style={{
                             height: height + "px",
                             // width: width + "px"
@@ -26,7 +26,7 @@ export default function Home({  }) {
                             priority
                             quality={50}
                         />
-                    </div> */}
+                    </div>
                 </div>
             </div>
         </div>
