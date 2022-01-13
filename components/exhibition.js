@@ -303,6 +303,34 @@ const StripesSticky = ({ rootRef, invitation, images, description, openLightbox 
         invitationWidth = invitationBoundingRect.getBoundingClientRect().width;
     }
 
+    // desktop vs mobile -- DOES IT MAKE SENSE TO USE LISTENER
+    const [imgColWidth, setImgColWidth] = useState(72);
+    // should be moved up -- rather make this comp effect free
+    // useEffect(() => {
+    //     if (window.innerWidth > 480) { // desktop
+    //         setImgColWidth(72)
+    //     } else if (window.innerWidth > 370) { // iphone678?
+    //         setImgColWidth(48)
+    //     } else {
+    //         setImgColWidth(32)
+    //     }
+    // }, [])
+    const getWidth = () => window.innerWidth;
+    useEffect(() => {
+        const updateColWidth = () => {
+            if (getWidth() > 480) { // desktop
+                setImgColWidth(72)
+            } else if (getWidth() > 370) { // iphone678?
+                setImgColWidth(48)
+            } else {
+                setImgColWidth(32)
+            }
+        }
+        updateColWidth()
+        window.addEventListener("resize", updateColWidth)
+        return () => window.removeEventListener("resize", updateColWidth)
+    }, [])
+    // zbytocne vela listenerov, staci vyssie jeden TODO toto porob normalne "efektivnve"
 
     return (
 
@@ -313,7 +341,7 @@ const StripesSticky = ({ rootRef, invitation, images, description, openLightbox 
 
                 {invitation ? (
 
-                    <div ref={invitationRef} className="sticky top-[84px] w-1/2">
+                    <div ref={invitationRef} className="flex-grow sticky top-[96px] w-1/2">
                         <Image
                             src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${invitation.url}`}
                             width={invitation.width}
@@ -328,8 +356,8 @@ const StripesSticky = ({ rootRef, invitation, images, description, openLightbox 
                     null
                 )}
 
-                {images ? (
-                    <div className="flex w-1/2 flex-wrap gap-2 justify-end">
+                {images && images.length > 0 ? (
+                    <div className="flex w-1/2 flex-grow flex-wrap gap-2 justify-end">
                         {images.map(img => {
 
                             return (
@@ -338,14 +366,14 @@ const StripesSticky = ({ rootRef, invitation, images, description, openLightbox 
                                     onClick={() => openLightbox(img.id)}
                                     style={{
                                         height: `${invitationHeight > 256 ? invitationHeight : 384}px`,
-                                        width: "32px",
+                                        width: `${imgColWidth}px`,
                                     }}
                                 >
                                     <Image
                                         src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${img.url}`}
                                         layout="fill"
                                         objectFit="cover"
-                                        // objectPosition="50% 50px"
+                                    // objectPosition="50% 50px"
                                     // width={img.width}
                                     // height={img.height}
                                     />

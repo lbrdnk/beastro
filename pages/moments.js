@@ -43,7 +43,7 @@ export default ({
 
     const allPhotos = ms.map(m => [...m.photos]).flat()
 
-    const gs = groupByHeight(allPhotos, 3).groups;
+    const gs = groupByHeight(allPhotos, 5).groups;
 
     return (
 
