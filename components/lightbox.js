@@ -305,7 +305,7 @@ const Thumbnails = ({ selectedId, setSelectedId, images, closeFn, ...props }) =>
                 {images.map((img, idx) => {
                     // if (idx > 6) return null
                     return (
-                        <div ref={thumbRefs[idx]} className="relative h-full hover:cursor-pointer">
+                        <div key={img.id} ref={thumbRefs[idx]} className="relative h-full hover:cursor-pointer">
                             <img
                                 // width={img.width} 
                                 // height={img.height}

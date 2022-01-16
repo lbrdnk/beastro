@@ -35,9 +35,9 @@ export async function getStaticProps(context) {
     }
 }
 
-export default ({
+export default function Moments({
     ...props
-}) => {
+}) {
 
     const ms = props.data;
 

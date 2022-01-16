@@ -3,7 +3,7 @@ import React from "react";
 import { getBoxFittingDimensions, useWindowDimensions } from "../lib/utils"
 import Image from "next/image";
 
-import { SRLWrapper, useLightbox } from "simple-react-lightbox";
+// import { SRLWrapper, useLightbox } from "simple-react-lightbox";
 
 import { groupByHeight } from "../lib/utils";
 
@@ -19,7 +19,9 @@ const Groups = ({ images, openLightbox, ...props }) => {
             {imgGroups.map((colPhotoArr, idx) => {
                 // console.log(colPhotoArr)
                 return (
-                    <div key={idx} className="flex flex-col flex-grow justify-center space-y-4">
+                    <div 
+                        key={idx}
+                        className="flex flex-col flex-grow justify-center space-y-4">
                         {colPhotoArr.map((photo, index) => (
                             <div
                                 key={photo.id}
@@ -55,7 +57,7 @@ const Stripes = ({ images, openLightbox, ...props }) => {
             {images.map(img => {
 
                 return (
-                    <div className="relative h-full flex-grow shadow-lg max-w-[128px]"
+                    <div key={img.id} className="relative h-full flex-grow shadow-lg max-w-[128px]"
                         onClick={() => openLightbox(img.id)}
                     >
                         <Image
@@ -130,6 +132,7 @@ const Horizontal = ({ invitation, images, description, openLightbox, rootRef }) 
                         return (
                             // <div className="relative block" style={{height: `${height}px`}}>
                             <img
+                                key={img.id}
                                 className="block object-contain"
                                 src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${img.url}`}
                                 style={{ height: `${height}px` }}
@@ -184,6 +187,7 @@ const Floating = ({ rootRef, invitation, images, description, openLightbox }) =>
                             return (
                                 // <div className="relative block" style={{height: `${height}px`}}>
                                 <img
+                                    key={img.id}
                                     className="block shadow-xl"
                                     src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${img.url}`}
                                     // style={{ height: `${height}px` }}
@@ -260,7 +264,9 @@ const Stripes2 = ({ rootRef, invitation, images, description, openLightbox }) =>
                     {images.map(img => {
 
                         return (
-                            <div className="relative h-auto flex-grow flex-shrink shadow-lg"
+                            <div 
+                                key={img.id}
+                                className="relative h-auto flex-grow flex-shrink shadow-lg"
                                 onClick={() => openLightbox(img.id)}
                             >
                                 <Image
@@ -323,7 +329,8 @@ const StripesSticky = ({ rootRef, invitation, images, description, openLightbox 
             } else if (getWidth() > 370) { // iphone678?
                 setImgColWidth(48)
             } else {
-                setImgColWidth(32)
+                // setImgColWidth(32)
+                setImgColWidth(48)
             }
         }
         updateColWidth()
@@ -362,7 +369,7 @@ const StripesSticky = ({ rootRef, invitation, images, description, openLightbox 
 
                             return (
                                 <div
-                                    key={img.url}
+                                    key={img.id}
                                     className="relative flex-grow shadow-xl"
                                     onClick={() => openLightbox(img.id)}
                                     style={{
@@ -393,206 +400,206 @@ const StripesSticky = ({ rootRef, invitation, images, description, openLightbox 
 
 
 
-const Exhibition = React.forwardRef(({
-    openLightbox,
-    e,
-    description,
-    invitation,
-    opening: {
-        photos: openingPhotos,
-        dateTime: openingDateTime
-    },
-    ...props }, ref) => {
+// const ExhibitionOLD = React.forwardRef(({
+//     openLightbox,
+//     e,
+//     description,
+//     invitation,
+//     opening: {
+//         photos: openingPhotos,
+//         dateTime: openingDateTime
+//     },
+//     ...props }, ref) => {
 
-    const { width: innerWidth, height: innerHeight } = useWindowDimensions()
+//     const { width: innerWidth, height: innerHeight } = useWindowDimensions()
 
-    const headerSize = 80;
+//     const headerSize = 80;
 
-    let imageUsedWidth, imageUsedHeight;
-    if (e.invitation) {
-        const { width: imageOrigWidth, height: imageOrigHeight } = e.invitation;
-        ({
-            width: imageUsedWidth,
-            height: imageUsedHeight
-        } = getBoxFittingDimensions(Math.min(innerWidth, 768), innerHeight - headerSize, imageOrigWidth, imageOrigHeight));
-    }
-    if (false) {
-        return (
-            // container
-            // ref for scroll into view
-            <div ref={ref}
-                className="flex flex-col justify-center items-center bg-green-200">
+//     let imageUsedWidth, imageUsedHeight;
+//     if (e.invitation) {
+//         const { width: imageOrigWidth, height: imageOrigHeight } = e.invitation;
+//         ({
+//             width: imageUsedWidth,
+//             height: imageUsedHeight
+//         } = getBoxFittingDimensions(Math.min(innerWidth, 768), innerHeight - headerSize, imageOrigWidth, imageOrigHeight));
+//     }
+//     if (false) {
+//         return (
+//             // container
+//             // ref for scroll into view
+//             <div ref={ref}
+//                 className="flex flex-col justify-center items-center bg-green-200">
 
-                {/* photos container*/}
-                <div
-                    // p-4 removed
-                    className={
-                        "flex flex-col w-full justify-center items-center space-y-4"
-                        + (e.invitation ? " before:h-[calc(100vh-80px)] before:mt-20" : "")
-                    }
-                >
-                    {/* toto sa neupdatne pri zmene velkosti okna? */}
-                    {e.opening_record.map(({ width, height, url }) => {
-                        // console.log("update")
-                        const availWidth = Math.min(innerWidth, 768);
-                        const availHeight = innerHeight - headerSize;
-                        const {
-                            width: imageUsedWidth,
-                            height: imageUsedHeight
-                        } = getBoxFittingDimensions(availWidth, availHeight, width, height);
+//                 {/* photos container*/}
+//                 <div
+//                     // p-4 removed
+//                     className={
+//                         "flex flex-col w-full justify-center items-center space-y-4"
+//                         + (e.invitation ? " before:h-[calc(100vh-80px)] before:mt-20" : "")
+//                     }
+//                 >
+//                     {/* toto sa neupdatne pri zmene velkosti okna? */}
+//                     {e.opening_record.map(({ width, height, url }) => {
+//                         // console.log("update")
+//                         const availWidth = Math.min(innerWidth, 768);
+//                         const availHeight = innerHeight - headerSize;
+//                         const {
+//                             width: imageUsedWidth,
+//                             height: imageUsedHeight
+//                         } = getBoxFittingDimensions(availWidth, availHeight, width, height);
 
-                        return (
+//                         return (
 
-                            // photo frame -- margin -- 
-                            <div key={url} className="w-full z-20 p-4 md:p-8"
-                                style={{
-                                    width: imageUsedWidth + "px",
-                                    height: imageUsedHeight + "px",
-                                }}>
+//                             // photo frame -- margin -- 
+//                             <div key={url} className="w-full z-20 p-4 md:p-8"
+//                                 style={{
+//                                     width: imageUsedWidth + "px",
+//                                     height: imageUsedHeight + "px",
+//                                 }}>
 
-                                <div key={url} className="relative z-20 shadow-2xl p-2 bg-white"
+//                                 <div key={url} className="relative z-20 shadow-2xl p-2 bg-white"
 
-                                >
-                                    <Image
-                                        src={process.env.NEXT_PUBLIC_CMS_BASE_URL + url}
-                                        width={parseInt(width)}
-                                        height={parseInt(height)}
-                                        layout="responsive"
-                                        sources={"100vw"}
-                                        lazyBoundary="900px"
-                                    // priority
-                                    />
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
-                {/* photos end */}
+//                                 >
+//                                     <Image
+//                                         src={process.env.NEXT_PUBLIC_CMS_BASE_URL + url}
+//                                         width={parseInt(width)}
+//                                         height={parseInt(height)}
+//                                         layout="responsive"
+//                                         sources={"100vw"}
+//                                         lazyBoundary="900px"
+//                                     // priority
+//                                     />
+//                                 </div>
+//                             </div>
+//                         );
+//                     })}
+//                 </div>
+//                 {/* photos end */}
 
-                {e.invitation && (
-                    <div className={`sticky w-full flex justify-center items-center`}
-                        style={{
-                            bottom: `calc(calc(100vh - 80px) / 2 - ${imageUsedHeight / 2}px)`,
-                            width: imageUsedWidth + "px",
-                            height: imageUsedHeight + "px"
-                        }}
-                    >
-                        <div
-                            className="sticky bottom-0 w-full h-full"
-                            style={{
-                                // bottom: "0px"
-                            }}
-                        >
-                            <Image
-                                src={process.env.NEXT_PUBLIC_CMS_BASE_URL + e.invitation.url}
-                                width={parseInt(e.invitation.width)}
-                                height={parseInt(e.invitation.height)}
-                                layout="responsive"
-                                sources={"60vw"}
-                                lazyBoundary="900px"
-                            // priority
-                            />
-                        </div>
-                    </div>
-                )}
-            </div>
-        )
-    }
+//                 {e.invitation && (
+//                     <div className={`sticky w-full flex justify-center items-center`}
+//                         style={{
+//                             bottom: `calc(calc(100vh - 80px) / 2 - ${imageUsedHeight / 2}px)`,
+//                             width: imageUsedWidth + "px",
+//                             height: imageUsedHeight + "px"
+//                         }}
+//                     >
+//                         <div
+//                             className="sticky bottom-0 w-full h-full"
+//                             style={{
+//                                 // bottom: "0px"
+//                             }}
+//                         >
+//                             <Image
+//                                 src={process.env.NEXT_PUBLIC_CMS_BASE_URL + e.invitation.url}
+//                                 width={parseInt(e.invitation.width)}
+//                                 height={parseInt(e.invitation.height)}
+//                                 layout="responsive"
+//                                 sources={"60vw"}
+//                                 lazyBoundary="900px"
+//                             // priority
+//                             />
+//                         </div>
+//                     </div>
+//                 )}
+//             </div>
+//         )
+//     }
 
-    // divide images
-
-
-    // invite only
-    // no invite
-    // if (description === "0037") {
-    //     console.log(e.invitation);
-    //     console.log(invitationId);
-    //     console.log(invitationUrl);
-    // }
-
-    // invitation, images -> layout 
-
-    const isInvitationLandscapeOrNone = !invitation || (invitation.height / invitation.width < 0.8);
-
-    const contentContainerClasses = "flex w-full " + (isInvitationLandscapeOrNone ? "flex-row space-x-4" : "flex-row space-x-4");
-
-    const invitationContainerClasses = "relative w-full sticky top-24"
-
-    const openingContainerClasses = "flex flex-row flex-wrap "; // + (isInvitationLandscapeOrNone ? "w-full" : "w-1/4");
-
-    // props -- description, invitation, opening/photos, date
-    return (
-        <div ref={ref} className="flex flex-col w-full space-y-4 border-b-4 border-dashed border-gray-50 last:border-none pb-8">
-
-            <div className={contentContainerClasses}>
-
-                {invitation ? (
-                    <div className="relative w-1/2 flex-grow">
-                        <div className={invitationContainerClasses}
-                            onClick={() => openLightbox(invitation.id)}
-                        >
-                            <Image
-                                src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${invitation.url}`}
-                                layout="responsive"
-                                width={invitation.width}
-                                height={invitation.height}
-
-                            />
-                        </div>
-                    </div>
-                ) : (
-                    null
-                )}
-                <div className={openingContainerClasses}>
-                    {/* TODO gallery component */}
-
-                    {/* {openingPhotos && <Stripes images={openingPhotos} openLightbox={openLightbox} />} */}
-
-                    {openingPhotos && (
-                        /*true ? (
-                            <Stripes images={openingPhotos} openLightbox={openLightbox} />
-                        ) : (
-                            <Groups images={openingPhotos} openLightbox={openLightbox} />
-                        )*/
-                        <Conservative images={openingPhotos} openLightbox={openLightbox} />
-                    )}
+//     // divide images
 
 
-                    {/* 
-                    {openingPhotos && openingPhotos.map(({ id, url, width, height }) => {
+//     // invite only
+//     // no invite
+//     // if (description === "0037") {
+//     //     console.log(e.invitation);
+//     //     console.log(invitationId);
+//     //     console.log(invitationUrl);
+//     // }
 
-                        return (
-                            // tmp w/h
-                            <div key={id} className="relative w-1/4 flex-grow"
-                                onClick={() => openLightbox(id)}
-                            >
-                                <Image
-                                    src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${url}`}
-                                    layout="responsive"
-                                    width={width}
-                                    height={height}
-                                    sources={"60vw"}
-                                    objectFit="cover"
-                                    quality={75}
-                                />
-                            </div>
-                        );
-                    })} */}
-                </div>
-            </div>
-            <h1 className="text-6xl">{description}</h1>
-        </div>
-    )
+//     // invitation, images -> layout 
 
-})
+//     const isInvitationLandscapeOrNone = !invitation || (invitation.height / invitation.width < 0.8);
 
-const Exhibition2 = React.forwardRef(({
+//     const contentContainerClasses = "flex w-full " + (isInvitationLandscapeOrNone ? "flex-row space-x-4" : "flex-row space-x-4");
+
+//     const invitationContainerClasses = "relative w-full sticky top-24"
+
+//     const openingContainerClasses = "flex flex-row flex-wrap "; // + (isInvitationLandscapeOrNone ? "w-full" : "w-1/4");
+
+//     // props -- description, invitation, opening/photos, date
+//     return (
+//         <div ref={ref} className="flex flex-col w-full space-y-4 border-b-4 border-dashed border-gray-50 last:border-none pb-8">
+
+//             <div className={contentContainerClasses}>
+
+//                 {invitation ? (
+//                     <div className="relative w-1/2 flex-grow">
+//                         <div className={invitationContainerClasses}
+//                             onClick={() => openLightbox(invitation.id)}
+//                         >
+//                             <Image
+//                                 src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${invitation.url}`}
+//                                 layout="responsive"
+//                                 width={invitation.width}
+//                                 height={invitation.height}
+
+//                             />
+//                         </div>
+//                     </div>
+//                 ) : (
+//                     null
+//                 )}
+//                 <div className={openingContainerClasses}>
+//                     {/* TODO gallery component */}
+
+//                     {/* {openingPhotos && <Stripes images={openingPhotos} openLightbox={openLightbox} />} */}
+
+//                     {openingPhotos && (
+//                         /*true ? (
+//                             <Stripes images={openingPhotos} openLightbox={openLightbox} />
+//                         ) : (
+//                             <Groups images={openingPhotos} openLightbox={openLightbox} />
+//                         )*/
+//                         <Conservative images={openingPhotos} openLightbox={openLightbox} />
+//                     )}
+
+
+//                     {/* 
+//                     {openingPhotos && openingPhotos.map(({ id, url, width, height }) => {
+
+//                         return (
+//                             // tmp w/h
+//                             <div key={id} className="relative w-1/4 flex-grow"
+//                                 onClick={() => openLightbox(id)}
+//                             >
+//                                 <Image
+//                                     src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${url}`}
+//                                     layout="responsive"
+//                                     width={width}
+//                                     height={height}
+//                                     sources={"60vw"}
+//                                     objectFit="cover"
+//                                     quality={75}
+//                                 />
+//                             </div>
+//                         );
+//                     })} */}
+//                 </div>
+//             </div>
+//             <h1 className="text-6xl">{description}</h1>
+//         </div>
+//     )
+
+// })
+
+const Exhibition = React.forwardRef( function Exhibition({
     openLightbox,
     e,
     description,
     invitation,
     opening,
-    ...props }, ref) => {
+    ...props }, ref) {
 
     // props -- description, invitation, opening/photos, date
     return (
@@ -606,8 +613,9 @@ const Exhibition2 = React.forwardRef(({
     )
 
 })
+Exhibition.displayName = "Exhibition"
 
-export default Exhibition2
+export default Exhibition
 
 {/* <h1 className="text-6xl" style={{
                 // fontFamily: "'Kosugi', sans-serif",

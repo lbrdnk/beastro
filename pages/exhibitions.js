@@ -4,7 +4,7 @@ import { createRef, useEffect, useState } from "react";
 import Exhibition from "../components/exhibition"
 import { getApiAccessToken } from "../lib/utils";
 
-import { useSWR } from "swr";
+// import { useSWR } from "swr";
 
 import Lightbox from "../components/lightbox";
 
