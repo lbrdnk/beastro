@@ -58,7 +58,7 @@ const useLayoutMode = () => {
 
     const [mode, setMode] = useState(layoutMode.na)
     useEffect(() => {
-        console.log(window.innerWidth)
+        // console.log(window.innerWidth)
         setMode(reportLayoutMode({ width: window.innerWidth, height: window.innerHeight }));
         const updateLayoutMode = () => setMode(reportLayoutMode({ width: window.innerWidth, height: window.innerHeight }));
         window.addEventListener("resize", updateLayoutMode);

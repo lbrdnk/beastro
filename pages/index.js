@@ -10,7 +10,7 @@ export default function Home({  }) {
     return (
 
         <div className="w-full flex flex-col items-center">
-            <div className="w-full max-w-2xl p-2">
+            <div className="w-full max-w-3xl">
                 <div className="w-full shadow-2xl p-2">
                     <div className="w-full relative filter invert"
                         style={{

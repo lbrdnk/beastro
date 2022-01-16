@@ -37,7 +37,7 @@ const headerHeightPx = `${headerHeight}px`
 const headerLogoHeight = 64;
 const headerLogoHeightPx = `${headerLogoHeight}px`
 
-const Img = ({ src, width, height, className }) => {
+const Img = ({ src, width, height, className, ...props }) => {
     return (
         // if there are classNames, append
         <div className={"relative" + (className ? (" " + className) : "")}
@@ -53,6 +53,7 @@ const Img = ({ src, width, height, className }) => {
             <Image
                 src={src}
                 layout="fill"
+                {...props}
             />
         </div>
     )

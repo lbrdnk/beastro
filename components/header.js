@@ -134,6 +134,7 @@ export default function Header({ isMenuOpened, setIsMenuOpened, ...props }) {
                                     }
                                     height={64}
                                     className="shadow-lg mb-2"
+                                    priority
                                 />
                             </Link>
                         </div>

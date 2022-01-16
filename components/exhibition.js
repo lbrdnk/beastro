@@ -102,7 +102,7 @@ const Horizontal = ({ invitation, images, description, openLightbox, rootRef }) 
         setHeight(invitationRef.current && invitationRef.current.clientHeight)
     }, [])
 
-    useEffect(() => console.log(height))
+    // useEffect(() => console.log(height))
 
     return (
         <div
@@ -362,6 +362,7 @@ const StripesSticky = ({ rootRef, invitation, images, description, openLightbox 
 
                             return (
                                 <div
+                                    key={img.url}
                                     className="relative flex-grow shadow-xl"
                                     onClick={() => openLightbox(img.id)}
                                     style={{
