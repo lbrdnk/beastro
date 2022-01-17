@@ -30,9 +30,9 @@ const ThumbsFixedCount = ({ selectedId, setSelectedId, images }) => {
                 const containerWidth = parseInt(width / (height / containerHeight));
 
                 return (
-                    <div 
+                    <div
                         key={id}
-                        className={"relative h-full" + (id !== selectedId ?  " opacity-60" : "")}
+                        className={"relative h-full" + (id !== selectedId ? " opacity-60" : "")}
                         style={{
                             width: `${containerWidth}px`,
                             height: `${containerHeight}px`,
@@ -419,7 +419,110 @@ export const Lightbox1 = ({ initialSelectedId, images, closeFn, ...props }) => {
 
 
 
-export default LightboxCenter;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function Lightbox3({ initialSelectedId, images, closeFn, ...props }) {
+
+    const [selectedImgId, setSelectedImgId] = useState(initialSelectedId);
+
+    const selectedImgIndex = images.findIndex(({ id }) => id === selectedImgId)
+    if (selectedImgIndex === -1) {
+        throw Error(`Unable to find image for id ${selectedImgId}`)
+    }
+
+    const prevImgIndex = selectedImgIndex - 1;
+    const prevImg = prevImgIndex >= 0 ? images[prevImgIndex] : null;
+
+    const selectedImg = images[selectedImgIndex]
+
+    const nextImgIndex = selectedImgIndex + 1;
+    const nextImg = nextImgIndex < images.length ? images[nextImgIndex] : null;
+
+    const selectImage = addend => {
+        const newIndex = selectedImgIndex + addend;
+        if (newIndex < 0 || newIndex >= images.length) {
+            return
+        }
+        setSelectedImgId(images[newIndex].id)
+    }
+
+    return (
+        <>
+            <div className="z-30 gap-4 fixed w-screen h-screen top-0 left-0 flex justify-center items-center bg-gray-800 bg-opacity-90">
+                <div
+                    className="relative max-w-[32px] md:max-w-[128px] h-[33%] ml-4"
+                    style={{
+                        flexGrow: 1,
+                        // maxWidth: "128px"
+                    }}
+                    onClick={() => selectImage(-1)}
+                >
+                    {prevImg ? (
+                        <Image
+                            src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${prevImg.url}`}
+                            layout="fill"
+                            objectFit="cover"
+                        />
+                    ) : null}
+                </div>
+                <div className="relative mt-4 mb-4 self-stretch"
+                    style={{
+                        flexGrow: 1
+                    }}
+                >
+                    <Image
+                        src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${selectedImg.url}`}
+                        layout="fill"
+                        objectFit="contain"
+                    />
+                </div>
+                <div
+                    className="relative max-w-[32px] md:max-w-[128px] h-[33%] mr-4"
+                    style={{
+                        flexGrow: 1,
+                        // maxWidth: "128px"
+                    }}
+                    onClick={() => selectImage(1)}
+                >
+                    {nextImg ? (
+                        <Image
+                            src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${nextImg.url}`}
+                            layout="fill"
+                            objectFit="cover"
+                        />
+                    ) : null}
+                </div>
+            </div>
+            <div
+                className="rounded-full hover:cursor-pointer text-center fixed w-14 h-14 top-4 right-8 p-4 bg-white bg-opacity-90 z-30"
+                onClick={closeFn}
+            >
+                X
+            </div>
+        </>
+    )
+}
+
+
+
+
+export default Lightbox3;
 
 
 

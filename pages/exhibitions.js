@@ -80,17 +80,17 @@ export default function Exhibitions({ data }) {
                             opening={e.opening}
                             openLightbox={
 
-                                //     (selectedImgId) => {
-                                //     setLightboxImages(
-                                //         e.invitation ? (
-                                //             [e.invitation, ...e.opening.photos]
-                                //         ) : (
-                                //             [...e.opening.photos]
-                                //         ))
-                                //     setSelectedLightboxImageId(selectedImgId);
-                                //     setIsLightBoxOpened(true);
-                                // }
-                                () => null
+                                    (selectedImgId) => {
+                                    setLightboxImages(
+                                        e.invitation ? (
+                                            [e.invitation, ...e.opening.photos]
+                                        ) : (
+                                            [...e.opening.photos]
+                                        ))
+                                    setSelectedLightboxImageId(selectedImgId);
+                                    setIsLightBoxOpened(true);
+                                }
+                                // () => null
                             }
                         />)
                     )}
