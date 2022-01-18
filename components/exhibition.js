@@ -393,7 +393,7 @@ const StripesSticky = ({ rootRef, invitation, images, description, openLightbox 
                 ) : null}
             </div>
 
-            <h1 className="text-4xl text-gray-900">{description}</h1>
+            {/* <h1 className="text-4xl text-gray-900">{description}</h1> */}
         </div>
     )
 }

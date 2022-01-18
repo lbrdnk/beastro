@@ -1,6 +1,9 @@
 import { useState, useRef, useEffect, createRef } from "react";
 import Image from "next/image";
 
+import arrowLeft from "../iconmonstr-angel-left-thin.svg"
+import arrowRight from "../iconmonstr-angel-right-thin.svg"
+
 
 
 // WIP -- namiesto tohoto spravit "stripes"
@@ -403,7 +406,6 @@ export const Lightbox1 = ({ initialSelectedId, images, closeFn, ...props }) => {
                             objectFit="contain"
                         />
                     </div>
-
                 </div>
                 <Thumbnails
                     selectedId={selectedId}
@@ -464,9 +466,9 @@ function Lightbox3({ initialSelectedId, images, closeFn, ...props }) {
 
     return (
         <>
-            <div className="z-30 gap-4 fixed w-screen h-screen top-0 left-0 flex justify-center items-center bg-gray-800 bg-opacity-90">
+            <div className="z-30 gap-2 fixed w-screen h-screen top-0 left-0 flex justify-center items-center bg-gray-800 bg-opacity-90">
                 <div
-                    className="relative max-w-[32px] md:max-w-[128px] h-[33%] ml-4"
+                    className="relative max-w-[32px] md:max-w-[128px] h-[100%]"
                     style={{
                         flexGrow: 1,
                         // maxWidth: "128px"
@@ -474,26 +476,41 @@ function Lightbox3({ initialSelectedId, images, closeFn, ...props }) {
                     onClick={() => selectImage(-1)}
                 >
                     {prevImg ? (
-                        <Image
-                            src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${prevImg.url}`}
-                            layout="fill"
-                            objectFit="cover"
-                        />
+                        <>
+                            <Image
+                                src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${prevImg.url}`}
+                                layout="fill"
+                                objectFit="cover"
+                                className="filter blur-sm"
+                            />
+                            <div className="relative h-full w-full">
+                                <Image
+                                    src={arrowLeft.src}
+                                    layout="fill"
+                                    objectFit="contain"
+                                    className="opacity-60"
+                                />
+                            </div>
+                        </>
                     ) : null}
+
                 </div>
-                <div className="relative mt-4 mb-4 self-stretch"
+                <div className="relative self-stretch"
                     style={{
                         flexGrow: 1
                     }}
                 >
                     <Image
                         src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${selectedImg.url}`}
+                        // width={selectedImg.width}
+                        // height={selectedImg.height}
+                        // layout="responsive"
                         layout="fill"
                         objectFit="contain"
                     />
                 </div>
                 <div
-                    className="relative max-w-[32px] md:max-w-[128px] h-[33%] mr-4"
+                    className="relative max-w-[32px] md:max-w-[128px] h-[100%]"
                     style={{
                         flexGrow: 1,
                         // maxWidth: "128px"
@@ -501,12 +518,24 @@ function Lightbox3({ initialSelectedId, images, closeFn, ...props }) {
                     onClick={() => selectImage(1)}
                 >
                     {nextImg ? (
-                        <Image
-                            src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${nextImg.url}`}
-                            layout="fill"
-                            objectFit="cover"
-                        />
+                        <>
+                            <Image
+                                src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${nextImg.url}`}
+                                layout="fill"
+                                objectFit="cover"
+                                className="filter blur-sm"
+                            />
+                            <div className="relative h-full w-full">
+                                <Image
+                                    src={arrowRight.src}
+                                    layout="fill"
+                                    objectFit="contain"
+                                    className="opacity-60"
+                                />
+                            </div>
+                        </>
                     ) : null}
+
                 </div>
             </div>
             <div
