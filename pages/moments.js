@@ -43,7 +43,35 @@ export default function Moments({
 
     const allPhotos = ms.map(m => [...m.photos]).flat()
 
-    const gs = groupByHeight(allPhotos, 5).groups;
+    
+
+    // initialize null vs 0
+    const [windowWidth, setWindowWidth] = useState(0);
+
+    // checking size of display to get column count
+    useEffect(() => {
+        const windowSizeHandler = () => {
+            setWindowWidth(window.innerWidth)
+        }
+        windowSizeHandler() // thanks to THIS -- i can use empty dep list
+        window.addEventListener("resize", windowSizeHandler)
+        return () => window.removeEventListener("resize", windowSizeHandler)
+    }, [])
+
+    // console.log(windowWidth)
+
+    // no point counting photo columns when window size was not set
+    // -> no point rendering when have no photo columns
+    if (windowWidth === 0) {
+        return null
+    }
+
+    let columnCount = 3;
+    if (windowWidth >= 480) {
+        columnCount = 5;
+    }
+
+    const gs = groupByHeight(allPhotos, columnCount).groups;
 
     return (
 
