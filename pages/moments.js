@@ -87,7 +87,7 @@ export default function Moments({
     // currently scrolling by columns
 
 
-    // THIS MUST BE AFTER HOOKS
+    // THIS MUST BE PLACED AFTER HOOKS
     // no point counting photo columns when window size was not set
     // -> no point rendering when have no photo columns
     if (windowWidth === 0) {
@@ -98,7 +98,7 @@ export default function Moments({
         <>
             {isLightBoxOpened && <Lightbox initialSelectedId={selectedLightboxImageId} images={lightboxImages} closeFn={closeLightbox} />}
 
-            <div className="flex flex-row w-full justify-center items-start p-4 ">
+            <div className="flex flex-row w-full justify-center items-start pt-2 md:pt-4 pl-2 pr-2 md:pl-0 md:pr-0">
                 {/* photo container */}
                 <div className="flex flex-row w-full justify-center items-stretch max-w-3xl space-x-4">
 

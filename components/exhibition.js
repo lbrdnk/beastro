@@ -348,7 +348,7 @@ const StripesSticky = ({ rootRef, invitation, images, description, openLightbox 
 
                 {invitation ? (
 
-                    <div ref={invitationRef} className="flex-grow sticky top-[96px] w-1/2">
+                    <div ref={invitationRef} className="flex-grow sticky top-[88px] w-1/2">
                         <Image
                             src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${invitation.url}`}
                             width={invitation.width}

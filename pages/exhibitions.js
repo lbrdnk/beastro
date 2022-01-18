@@ -72,7 +72,7 @@ export default function Exhibitions({ data }) {
 
             <div className="flex justify-center">
 
-                <div className="flex-grow max-w-3xl space-y-8 m-2 mt-4">
+                <div className="flex-grow max-w-3xl space-y-8 m-2 mt-2">
                     {data.map((e, i) => (
                         <Exhibition key={e.id} e={e} ref={exRefs[i]}
                             description={e.description}
