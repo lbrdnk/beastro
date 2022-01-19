@@ -25,6 +25,7 @@ export default function Home({  }) {
                             // objectPosition="-530px 0%"
                             priority
                             quality={50}
+                            // className='filter blur-md'
                         />
                     </div>
                 </div>

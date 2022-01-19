@@ -413,8 +413,11 @@ const StripesSticky = ({ rootRef, invitation, images, description, openLightbox 
                             sizes={invitationImgSizes}
                             // objectFit="cover"
                             onClick={() => openLightbox(invitation.id)}
-                            onLoadingComplete={() => setInvitationBoundingRect(invitationRef.current)}
+                            onLoadingComplete={
+                                () => setInvitationBoundingRect(invitationRef.current)
+                            }
                             quality={50}
+                            lazyBoundary={lazyBound}
                         />
                     </div>
                 ) : (
@@ -431,7 +434,7 @@ const StripesSticky = ({ rootRef, invitation, images, description, openLightbox 
                                     className="relative flex-grow shadow-xl"
                                     onClick={() => openLightbox(img.id)}
                                     style={{
-                                        height: fencesHeight, //`${invitationHeight > 256 ? invitationHeight : 384}px`,
+                                        height: /*fencesHeight,*/ `${invitationHeight > 256 ? invitationHeight : 384}px`,
                                         width: `${imgColWidth}px`,
                                     }}
                                 >
