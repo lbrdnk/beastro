@@ -353,10 +353,13 @@ const StripesSticky = ({ rootRef, invitation, images, description, openLightbox 
         return () => window.removeEventListener("resize", updateWindowWidth)
     }, [])
     // invitation size -- just trying
-    let invitationImgSizes = "49vw" // 1vw margin estimation, probably wrong lets see, FOR less than 768
+    let invitationImgSizes = "49vw"; // 1vw margin estimation, probably wrong lets see, FOR less than 768
     if (windowWidth > 768) {
-        invitationImgSizes = "384px"
+        invitationImgSizes = "384px";
+    } else if (images.length === 0) {
+        invitationImgSizes = "768px";
     }
+
 
     // Get window height to set "fences" lazy bound accordingly
     // TODO move into context / hook
@@ -371,6 +374,12 @@ const StripesSticky = ({ rootRef, invitation, images, description, openLightbox 
         return () => window.removeEventListener("resize", updateWindowHeight)
     }, [])
     const lazyBound = `${2 * windowHeight}px`
+
+    // set fences height
+    let fencesHeight = "60vh";
+    if (windowWidth > 480) {
+        fencesHeight = "75vh";
+    }
     
     // following probably useless ? or maybe interfering with SSG
     if (windowHeight === 0) {
@@ -422,7 +431,7 @@ const StripesSticky = ({ rootRef, invitation, images, description, openLightbox 
                                     className="relative flex-grow shadow-xl"
                                     onClick={() => openLightbox(img.id)}
                                     style={{
-                                        height: `${invitationHeight > 256 ? invitationHeight : 384}px`,
+                                        height: fencesHeight, //`${invitationHeight > 256 ? invitationHeight : 384}px`,
                                         width: `${imgColWidth}px`,
                                     }}
                                 >
