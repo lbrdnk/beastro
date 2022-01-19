@@ -321,6 +321,7 @@ const StripesSticky = ({ rootRef, invitation, images, description, openLightbox 
     //         setImgColWidth(32)
     //     }
     // }, [])
+
     const getWidth = () => window.innerWidth;
     useEffect(() => {
         const updateColWidth = () => {
@@ -339,6 +340,52 @@ const StripesSticky = ({ rootRef, invitation, images, description, openLightbox 
     }, [])
     // zbytocne vela listenerov, staci vyssie jeden TODO toto porob normalne "efektivnve"
 
+    // TODO refactor with upper effects -- lot of redundant code / rendering
+    // TODO debouncing and throttling -- just to find out how it works, when should be considered
+    const [windowWidth, setWindowWidth] = useState(0);
+    useEffect(() => {
+        const updateWindowWidth = () => {
+            // console.log(`updating width to ${window.innerWidth}`)
+            setWindowWidth(window.innerWidth)
+        }
+        updateWindowWidth()
+        window.addEventListener("resize", updateWindowWidth)
+        return () => window.removeEventListener("resize", updateWindowWidth)
+    }, [])
+    // invitation size -- just trying
+    let invitationImgSizes = "49vw" // 1vw margin estimation, probably wrong lets see, FOR less than 768
+    if (windowWidth > 768) {
+        invitationImgSizes = "384px"
+    }
+
+    // Get window height to set "fences" lazy bound accordingly
+    // TODO move into context / hook
+    const [windowHeight, setWindowHeight] = useState(0);
+    useEffect(() => {
+        const updateWindowHeight = () => {
+            // console.log(`updating width to ${window.innerHeight}`)
+            setWindowHeight(window.innerHeight)
+        }
+        updateWindowHeight()
+        window.addEventListener("resize", updateWindowHeight)
+        return () => window.removeEventListener("resize", updateWindowHeight)
+    }, [])
+    const lazyBound = `${2 * windowHeight}px`
+    
+    // following probably useless ? or maybe interfering with SSG
+    if (windowHeight === 0) {
+        return null;
+    }
+
+    // makes no sense to render (and do img fetching) while i do not know
+    // window width, to fetch proper img size
+    // ? avoid duplicate img fetching
+    if (windowWidth === 0) {
+        return null;
+    }
+
+
+
     return (
 
         <div
@@ -354,9 +401,11 @@ const StripesSticky = ({ rootRef, invitation, images, description, openLightbox 
                             width={invitation.width}
                             height={invitation.height}
                             layout="responsive"
+                            sizes={invitationImgSizes}
                             // objectFit="cover"
                             onClick={() => openLightbox(invitation.id)}
                             onLoadingComplete={() => setInvitationBoundingRect(invitationRef.current)}
+                            quality={50}
                         />
                     </div>
                 ) : (
@@ -381,6 +430,8 @@ const StripesSticky = ({ rootRef, invitation, images, description, openLightbox 
                                         src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${img.url}`}
                                         layout="fill"
                                         objectFit="cover"
+                                        quality={50}
+                                        lazyBoundary={lazyBound}
                                     // objectPosition="50% 50px"
                                     // width={img.width}
                                     // height={img.height}
