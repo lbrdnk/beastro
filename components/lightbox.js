@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect, createRef } from "react";
 import Image from "next/image";
 
-import arrowLeft from "../iconmonstr-angel-left-thin.svg"
-import arrowRight from "../iconmonstr-angel-right-thin.svg"
+import arrowLeft from "../iconmonstr-arrow-79.svg"
+import arrowRight from "../iconmonstr-arrow-37.svg"
 
 
 
@@ -438,7 +438,7 @@ export const Lightbox1 = ({ initialSelectedId, images, closeFn, ...props }) => {
 
 
 
-
+// TODO lightbox4 -- s obrazom v pozadi pol na pol
 function Lightbox3({ initialSelectedId, images, closeFn, ...props }) {
 
     const [selectedImgId, setSelectedImgId] = useState(initialSelectedId);
@@ -548,10 +548,306 @@ function Lightbox3({ initialSelectedId, images, closeFn, ...props }) {
     )
 }
 
+function Lightbox4({ initialSelectedId, images, closeFn, ...props }) {
+
+    const [selectedImgId, setSelectedImgId] = useState(initialSelectedId);
+
+    const selectedImgIndex = images.findIndex(({ id }) => id === selectedImgId)
+    if (selectedImgIndex === -1) {
+        throw Error(`Unable to find image for id ${selectedImgId}`)
+    }
+
+    const prevImgIndex = selectedImgIndex - 1;
+    const prevImg = prevImgIndex >= 0 ? images[prevImgIndex] : null;
+
+    const selectedImg = images[selectedImgIndex]
+
+    const nextImgIndex = selectedImgIndex + 1;
+    const nextImg = nextImgIndex < images.length ? images[nextImgIndex] : null;
+
+    const nextNextImg = selectedImgIndex + 2 < images.length ? images[selectedImgIndex + 2] : null;
+    console.log(nextNextImg)
+
+    const selectImage = addend => {
+        const newIndex = selectedImgIndex + addend;
+        if (newIndex < 0 || newIndex >= images.length) {
+            return
+        }
+        setSelectedImgId(images[newIndex].id)
+    }
+
+    return (
+        <>
+            {/* container for padding and wh setting only */}
+            <div className="z-30 gap-2 fixed w-screen h-screen top-0 left-0 flex justify-center items-stretch bg-gray-800 bg-opacity-90">
+                {/* stretch grow? */}
+                <div className="relative h-full w-full flex">
+
+                    <div className="relative w-1/2 filter blur-sm">
+                        {prevImg ? (
+                            <>
+
+                                <Image
+                                    src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${prevImg.url}`}
+                                    layout="fill"
+                                    objectFit="cover"
+                                    className=""
+                                />
+
+                            </>
+                        ) : null}
+                    </div>
+
+                    <div className="relative w-1/2 filter blur-sm">
+                        {nextImg ? (
+                            <>
+
+                                <Image
+                                    src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${nextImg.url}`}
+                                    layout="fill"
+                                    objectFit="cover"
+                                    className=""
+                                />
+
+                                {nextNextImg ? (
+                                    <div className="relative w-1/2 filter blur-sm">
+                                        <Image
+                                            src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${nextNextImg.url}`}
+                                            layout="fill"
+                                            objectFit="cover"
+                                            priority
+                                        // className="hidden"
+                                        />
+                                    </div>
+                                ) : null}
+
+                            </>
+                        ) : null}
+                    </div>
+
+                    {true ? (
+                        <div className="absolute left-[8px] right-[8px] ml-auto mr-auto top-[8px] bottom-[8px] mt-auto mb-auto">
+                            {/* inner flex */}
+                            <div className="flex space-x-2 w-full h-full">
+
+                                {/* sipka */}
+                                <div
+                                    className="relative max-w-[32px] md:max-w-[128px] h-[100%] flex-grow"
+                                    style={{
+                                        flexGrow: 1,
+                                        // maxWidth: "128px"
+                                    }}
+                                    onClick={() => selectImage(-1)}
+                                >
+                                    <div className="relative h-full w-full">
+                                        <Image
+                                            src={arrowLeft.src}
+                                            layout="fill"
+                                            objectFit="contain"
+                                            className="opacity-50"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="relative"
+                                    style={{
+                                        flexGrow: 1
+                                    }}
+                                >
+                                    <Image
+                                        src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${selectedImg.url}`}
+                                        // width={selectedImg.width}
+                                        // height={selectedImg.height}
+                                        // layout="responsive"
+                                        layout="fill"
+                                        objectFit="contain"
+                                    />
+                                </div>
+
+                                {/* sipka */}
+                                <div
+                                    className="relative max-w-[32px] md:max-w-[128px] h-[100%] flex-grow"
+                                    style={{
+                                        flexGrow: 1,
+                                        // maxWidth: "128px"
+                                    }}
+                                    onClick={() => selectImage(1)}
+                                >
+                                    <div className="relative h-full w-full">
+                                        <Image
+                                            src={arrowRight.src}
+                                            layout="fill"
+                                            objectFit="contain"
+                                            className="opacity-50"
+                                        />
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    ) : null}
+
+                    {/* TODO following absolute position */}
+                    {/* <div
+                        className="rounded-full hover:cursor-pointer text-center fixed w-14 h-14 top-4 right-8 p-4 bg-white bg-opacity-90 z-30"
+                        onClick={closeFn}
+                    >
+                        X
+                    </div> */}
+                    <div className="absolute h-16 w-16 shadow-lg top-[8px] right-[8px] bg-white" onClick={closeFn}>
+                        <span
+                            className="w-full h-full align-middle flex items-center justify-center text-center text-3xl text-gray-500"
+                        >
+                            X
+                        </span>
+                    </div>
+                </div>
+            </div>
+            {/* prefetching of next next images */}
+            {/* {nextNextImg ? (
+                <div className="w-screen h-screen relative">
+                    <Image
+                        src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${nextImg.url}`}
+                        layout="fill"
+                        objectFit="cover"
+                        className=""
+                    />
+                </div>
+            ) : null} */}
+        </>
+    )
+}
+
+
+// based on Lightbox3 -- similar colors, "ploty", consistent with exhibitions
+function Lightbox5({ initialSelectedId, images, closeFn, ...props }) {
+    const [selectedImgId, setSelectedImgId] = useState(initialSelectedId);
+
+    const selectedImgIndex = images.findIndex(({ id }) => id === selectedImgId)
+    if (selectedImgIndex === -1) {
+        throw Error(`Unable to find image for id ${selectedImgId}`)
+    }
+
+    const prevImgIndex = selectedImgIndex - 1;
+    const prevImg = prevImgIndex >= 0 ? images[prevImgIndex] : null;
+
+    const selectedImg = images[selectedImgIndex]
+
+    const nextImgIndex = selectedImgIndex + 1;
+    const nextImg = nextImgIndex < images.length ? images[nextImgIndex] : null;
+
+    const selectImage = addend => {
+        const newIndex = selectedImgIndex + addend;
+        if (newIndex < 0 || newIndex >= images.length) {
+            return
+        }
+        setSelectedImgId(images[newIndex].id)
+    }
+
+    return (
+        <>
+            <div className="z-30 gap-2 fixed w-screen h-screen top-0 left-0 flex justify-center items-center bg-gray-800 bg-opacity-90">
+                <div
+                    className="relative max-w-[32px] md:max-w-[128px] h-[100%]"
+                    style={{
+                        flexGrow: 1,
+                        // maxWidth: "128px"
+                    }}
+                    onClick={() => selectImage(-1)}
+                >
+                    {prevImg ? (
+                        <>
+                            <Image
+                                src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${prevImg.url}`}
+                                layout="fill"
+                                objectFit="cover"
+                                className="filter blur-sm"
+                            />
+                            <div className="relative h-full w-full">
+                                <Image
+                                    src={arrowLeft.src}
+                                    layout="fill"
+                                    objectFit="contain"
+                                    className="opacity-60"
+                                />
+                            </div>
+                        </>
+                    ) : null}
+
+                </div>
+                <div className="relative self-stretch"
+                    style={{
+                        flexGrow: 1
+                    }}
+                >
+                    <Image
+                        src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${selectedImg.url}`}
+                        // width={selectedImg.width}
+                        // height={selectedImg.height}
+                        // layout="responsive"
+                        layout="fill"
+                        objectFit="contain"
+                    />
+                </div>
+                <div
+                    className="relative max-w-[32px] md:max-w-[128px] h-[100%]"
+                    style={{
+                        flexGrow: 1,
+                        // maxWidth: "128px"
+                    }}
+                    onClick={() => selectImage(1)}
+                >
+                    {nextImg ? (
+                        <>
+                            <Image
+                                src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${nextImg.url}`}
+                                layout="fill"
+                                objectFit="cover"
+                                className="filter blur-sm"
+                            />
+                            <div className="relative h-full w-full">
+                                <Image
+                                    src={arrowRight.src}
+                                    layout="fill"
+                                    objectFit="contain"
+                                    className="opacity-60"
+                                />
+                            </div>
+                        </>
+                    ) : null}
+
+                </div>
+            </div>
+            <div
+                className="rounded-full hover:cursor-pointer text-center fixed w-14 h-14 top-4 right-8 p-4 bg-white bg-opacity-90 z-30"
+                onClick={closeFn}
+            >
+                X
+            </div>
+        </>
+    )
+}
 
 
 
-export default Lightbox3;
+export default Lightbox4;
+
+// central lightbox4
+{/* <div className="relative self-stretch"
+                        style={{
+                            flexGrow: 1
+                        }}
+                    >
+                        <Image
+                            src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${selectedImg.url}`}
+                            // width={selectedImg.width}
+                            // height={selectedImg.height}
+                            // layout="responsive"
+                            layout="fill"
+                            objectFit="contain"
+                        />
+                    </div> */}
 
 
 
