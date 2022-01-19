@@ -566,7 +566,9 @@ function Lightbox4({ initialSelectedId, images, closeFn, ...props }) {
     const nextImg = nextImgIndex < images.length ? images[nextImgIndex] : null;
 
     const nextNextImg = selectedImgIndex + 2 < images.length ? images[selectedImgIndex + 2] : null;
-    console.log(nextNextImg)
+    // console.log(nextNextImg)
+
+    const prevPrevImg = selectedImgIndex - 2 >= 0 ? images[selectedImgIndex - 2] : null;
 
     const selectImage = addend => {
         const newIndex = selectedImgIndex + addend;
@@ -593,6 +595,18 @@ function Lightbox4({ initialSelectedId, images, closeFn, ...props }) {
                                     objectFit="cover"
                                     className=""
                                 />
+
+                                {prevPrevImg ? (
+                                    <div className="relative w-1/2 filter blur-sm">
+                                        <Image
+                                            src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${prevPrevImg.url}`}
+                                            layout="fill"
+                                            objectFit="cover"
+                                            priority
+                                        // className="hidden"
+                                        />
+                                    </div>
+                                ) : null}
 
                             </>
                         ) : null}
