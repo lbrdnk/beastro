@@ -98,9 +98,9 @@ export default function Moments({
         <>
             {isLightBoxOpened && <Lightbox initialSelectedId={selectedLightboxImageId} images={lightboxImages} closeFn={closeLightbox} />}
 
-            <div className="flex flex-row w-full justify-center items-start pt-2 md:pt-4 pl-2 pr-2 md:pl-0 md:pr-0">
+            <div className="flex flex-row w-full justify-center items-start pt-2">
                 {/* photo container */}
-                <div className="flex flex-row w-full justify-center items-stretch max-w-3xl space-x-4">
+                <div className="flex flex-row w-full justify-center items-stretch max-w-3xl space-x-4 pl-2 pr-2">
 
                     {gs.map((colPhotoArr, idx) => {
                         return (

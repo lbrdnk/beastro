@@ -46,7 +46,7 @@ export default function Header({ isMenuOpened, setIsMenuOpened, ...props }) {
         <div className="sticky top-0 z-20 w-full flex justify-center bg-gray-50 shadow-lg h-20">
 
             {/* content container -- space between logo with nav, max content width */}
-            <div className="relative flex space-x-2 justify-between items-end max-w-3xl w-full pl-2 pr-2 md:pl-0 md:pr-0">
+            <div className="relative flex space-x-2 justify-between items-end max-w-3xl w-full pl-2 pr-2">
 
                 {/* logo */}
                 <Link href="/">
@@ -101,7 +101,7 @@ export default function Header({ isMenuOpened, setIsMenuOpened, ...props }) {
             }>
 
                 {/* content container -- space between logo with nav, max content width */}
-                <div className="relative flex space-x-2 justify-between items-end max-w-3xl w-full pl-2 pr-2 md:pl-0 md:pr-0">
+                <div className="relative flex space-x-2 justify-between items-end max-w-3xl w-full pl-2 pr-2">
 
                     <div className="flex flex-col justify-end items-start space-y-2">
 
