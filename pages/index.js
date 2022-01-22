@@ -1,7 +1,8 @@
 import Head from 'next/head'
 import Image from 'next/image'
 
-import hero from "../public/index_hero.jpg";
+// import hero from "../public/index_hero.jpg";
+import hero from "../public/index_hero_kaminsky_xp.jpg";
 
 export default function Home({  }) {
 
