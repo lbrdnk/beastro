@@ -2,7 +2,8 @@ import Head from 'next/head'
 import Image from 'next/image'
 
 // import hero from "../public/index_hero.jpg";
-import hero from "../public/index_hero_kaminsky_xp_3.jpg";
+// import hero from "../public/index_hero_kaminsky_xp_3.jpg";
+import hero from "../public/BEASTRO_pozvanka_fb_uzovic.jpg";
 
 export default function Home({ }) {
 
