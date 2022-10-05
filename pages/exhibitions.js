@@ -2,7 +2,7 @@ import Image from "next/image";
 import { createRef, useEffect, useState } from "react";
 
 import Exhibition from "../components/exhibition"
-import { getApiAccessToken } from "../lib/utils";
+import { getApiAccessToken, loadExhibitions } from "../lib/utils";
 
 // import { useSWR } from "swr";
 
@@ -12,35 +12,17 @@ import Lightbox from "../components/lightbox";
 
 export async function getStaticProps(context) {
 
-    const token = await getApiAccessToken();
+    // console.log(loadExhibitions())
+    const exhibitions = await loadExhibitions();
 
-    const response = await fetch(
-        process.env.NEXT_PUBLIC_CMS_BASE_URL
-        + "/exhibitions?"
-        + new URLSearchParams({ _limit: 100 }), {
-        headers: new Headers({
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-        })
-    });
+    // console.log(exhibitions[0].photos[0]);
 
-    if (response.status !== 200) {
-        throw (new Error(`Authentication returned ${response.status}`))
-    }
-
-    const data = await response.json()
-
-    // TODO remove?
-    data.reverse();
-
-    // dorobit props
-    const d2 = data.map(({ id = null, description = null, invitation = {}, opening_record = [], opening = null }) => ({
-        id,
-        description,
-        invitation,
+    const d2 = exhibitions.map(({ description, flyer, photos }) => ({
+        id: parseInt(description),
+        description: description,
+        invitation: flyer,
         opening: {
-            photos: opening_record.map(({ id, url, width, height }) => ({ id, url, width, height })),
-            dateTime: opening, // from arguments
+            photos: photos
         }
     }));
 
@@ -52,6 +34,51 @@ export async function getStaticProps(context) {
     return {
         props: { data: d2 },
     }
+
+    // AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+
+
+    // const token = await getApiAccessToken();
+
+    // const response = await fetch(
+    //     process.env.NEXT_PUBLIC_CMS_BASE_URL
+    //     + "/exhibitions?"
+    //     + new URLSearchParams({ _limit: 100 }), {
+    //     headers: new Headers({
+    //         'Authorization': `Bearer ${token}`,
+    //         'Content-Type': 'application/json'
+    //     })
+    // });
+
+    // if (response.status !== 200) {
+    //     throw (new Error(`Authentication returned ${response.status}`))
+    // }
+
+    // const data = await response.json()
+
+    // // TODO remove?
+    // data.reverse();
+
+    // // dorobit props
+    // const d2 = data.map(({ id = null, description = null, invitation = {}, opening_record = [], opening = null }) => ({
+    //     id,
+    //     description,
+    //     invitation,
+    //     opening: {
+    //         photos: opening_record.map(({ id, url, width, height }) => ({ id, url, width, height })),
+    //         dateTime: opening, // from arguments
+    //     }
+    // }));
+
+    // // const noInvIdx = d2.findIndex(({ description }) => description === "0037");
+    // // if (noInvIdx === -1) {
+    // //     throw new Error("Unable to find 0037 exhibition")
+    // // }
+
+    // return {
+    //     props: { data: d2 },
+    // }
 }
 
 export default function Exhibitions({ data }) {

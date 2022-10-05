@@ -44,7 +44,7 @@ const ThumbsFixedCount = ({ selectedId, setSelectedId, images }) => {
                         }}
                     >
                         <Image
-                            src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${url}`}
+                            src={url}
                             // width={width}
                             // height={height}
                             layout="fill"
@@ -139,7 +139,7 @@ const LightboxCenter = ({ initialSelectedId, images, closeFn, ...props }) => {
                 <div className="flex flex-col justify-center flex-grow">
                     <div className="relative h-full">
                         <Image
-                            src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${selectedImg.url}`}
+                            src={selectedImg.url}
                             // width={images[selectedImgIdx].width}
                             // height={images[selectedImgIdx].height}
                             layout="fill"
@@ -242,7 +242,7 @@ const LightboxBottom = ({ initialSelectedId, images, closeFn, ...props }) => {
                     </div> */}
                     <div className="relative w-3/5">
                         <Image
-                            src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${selectedImg.url}`}
+                            src={selectedImg.url}
                             // width={images[selectedImgIdx].width}
                             // height={images[selectedImgIdx].height}
                             layout="fill"
@@ -315,7 +315,7 @@ const Thumbnails = ({ selectedId, setSelectedId, images, closeFn, ...props }) =>
                                 className="block h-full max-w-max"
                                 // layout="fill"
                                 // objectFit="contain"
-                                src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${img.url}`}
+                                src={img.url}
                                 style={img.id === selectedId ? { opacity: "1" } : { opacity: "0.5" }}
                                 onClick={() => setSelectedId(img.id)}
                             />
@@ -399,7 +399,7 @@ export const Lightbox1 = ({ initialSelectedId, images, closeFn, ...props }) => {
                 <div className="flex flex-col justify-center flex-grow">
                     <div className="relative h-full">
                         <Image
-                            src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${selectedImg.url}`}
+                            src={selectedImg.url}
                             // width={images[selectedImgIdx].width}
                             // height={images[selectedImgIdx].height}
                             layout="fill"
@@ -478,7 +478,7 @@ function Lightbox3({ initialSelectedId, images, closeFn, ...props }) {
                     {prevImg ? (
                         <>
                             <Image
-                                src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${prevImg.url}`}
+                                src={prevImg.url}
                                 layout="fill"
                                 objectFit="cover"
                                 className="filter blur-sm"
@@ -501,7 +501,7 @@ function Lightbox3({ initialSelectedId, images, closeFn, ...props }) {
                     }}
                 >
                     <Image
-                        src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${selectedImg.url}`}
+                        src={selectedImg.url}
                         // width={selectedImg.width}
                         // height={selectedImg.height}
                         // layout="responsive"
@@ -520,7 +520,7 @@ function Lightbox3({ initialSelectedId, images, closeFn, ...props }) {
                     {nextImg ? (
                         <>
                             <Image
-                                src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${nextImg.url}`}
+                                src={nextImg.url}
                                 layout="fill"
                                 objectFit="cover"
                                 className="filter blur-sm"
@@ -590,7 +590,7 @@ function Lightbox4({ initialSelectedId, images, closeFn, ...props }) {
                             <>
 
                                 <Image
-                                    src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${prevImg.url}`}
+                                    src={prevImg.url}
                                     layout="fill"
                                     objectFit="cover"
                                     className=""
@@ -599,7 +599,7 @@ function Lightbox4({ initialSelectedId, images, closeFn, ...props }) {
                                 {prevPrevImg ? (
                                     <div className="relative w-1/2 filter blur-sm">
                                         <Image
-                                            src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${prevPrevImg.url}`}
+                                            src={prevPrevImg.url}
                                             layout="fill"
                                             objectFit="cover"
                                             priority
@@ -617,7 +617,7 @@ function Lightbox4({ initialSelectedId, images, closeFn, ...props }) {
                             <>
 
                                 <Image
-                                    src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${nextImg.url}`}
+                                    src={nextImg.url}
                                     layout="fill"
                                     objectFit="cover"
                                     className=""
@@ -626,7 +626,7 @@ function Lightbox4({ initialSelectedId, images, closeFn, ...props }) {
                                 {nextNextImg ? (
                                     <div className="relative w-1/2 filter blur-sm">
                                         <Image
-                                            src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${nextNextImg.url}`}
+                                            src={nextNextImg.url}
                                             layout="fill"
                                             objectFit="cover"
                                             priority
@@ -669,7 +669,7 @@ function Lightbox4({ initialSelectedId, images, closeFn, ...props }) {
                                     }}
                                 >
                                     <Image
-                                        src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${selectedImg.url}`}
+                                        src={selectedImg.url}
                                         // width={selectedImg.width}
                                         // height={selectedImg.height}
                                         // layout="responsive"
@@ -773,7 +773,7 @@ function Lightbox5({ initialSelectedId, images, closeFn, ...props }) {
                     {prevImg ? (
                         <>
                             <Image
-                                src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${prevImg.url}`}
+                                src={prevImg.url}
                                 layout="fill"
                                 objectFit="cover"
                                 className="filter blur-sm"
@@ -796,7 +796,7 @@ function Lightbox5({ initialSelectedId, images, closeFn, ...props }) {
                     }}
                 >
                     <Image
-                        src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${selectedImg.url}`}
+                        src={selectedImg.url}
                         // width={selectedImg.width}
                         // height={selectedImg.height}
                         // layout="responsive"
@@ -815,7 +815,7 @@ function Lightbox5({ initialSelectedId, images, closeFn, ...props }) {
                     {nextImg ? (
                         <>
                             <Image
-                                src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${nextImg.url}`}
+                                src={nextImg.url}
                                 layout="fill"
                                 objectFit="cover"
                                 className="filter blur-sm"

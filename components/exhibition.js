@@ -61,7 +61,7 @@ const Stripes = ({ images, openLightbox, ...props }) => {
                         onClick={() => openLightbox(img.id)}
                     >
                         <Image
-                            src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${img.url}`}
+                            src={img.url}
                             layout="fill"
                             objectFit="cover"
                         // width={invitationWidth}
@@ -118,7 +118,7 @@ const Horizontal = ({ invitation, images, description, openLightbox, rootRef }) 
 
                     <img
                         ref={invitationRef}
-                        src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${invitation.url}`}
+                        src={invitation.url}
                         className="block w-1/3"
                         onClick={() => openLightbox(invitation.id)}
                     />
@@ -134,7 +134,7 @@ const Horizontal = ({ invitation, images, description, openLightbox, rootRef }) 
                             <img
                                 key={img.id}
                                 className="block object-contain"
-                                src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${img.url}`}
+                                src={img.url}
                                 style={{ height: `${height}px` }}
                                 // width={img.width}
                                 // height={img.height}
@@ -170,7 +170,7 @@ const Floating = ({ rootRef, invitation, images, description, openLightbox }) =>
                     <div className={`relative${images.length === 0 ? " w-full" : " w-2/3"}`}>
                         <img
                             // ref={invitationRef}
-                            src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${invitation.url}`}
+                            src={invitation.url}
                             className="block w-full sticky top-24"
                             onClick={() => openLightbox(invitation.id)}
                         />
@@ -189,7 +189,7 @@ const Floating = ({ rootRef, invitation, images, description, openLightbox }) =>
                                 <img
                                     key={img.id}
                                     className="block shadow-xl"
-                                    src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${img.url}`}
+                                    src={img.url}
                                     // style={{ height: `${height}px` }}
                                     onClick={() => openLightbox(img.id)}
                                 />
@@ -218,7 +218,7 @@ const LandscapeFlyer = ({ rootRef, invitation, images, description, openLightbox
 
             <div>
                 {invitation ? (
-                    <img src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${invitation.url}`} />
+                    <img src={invitation.url} />
                 ) : null}
             </div>
             <div className="flex flex-wrap ">
@@ -252,7 +252,7 @@ const Stripes2 = ({ rootRef, invitation, images, description, openLightbox }) =>
 
                     <img
                         // ref={invitationRef}
-                        src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${invitation.url}`}
+                        src={invitation.url}
                         className="block w-1/2"
                         onClick={() => openLightbox(invitation.id)}
                     />
@@ -270,7 +270,7 @@ const Stripes2 = ({ rootRef, invitation, images, description, openLightbox }) =>
                                 onClick={() => openLightbox(img.id)}
                             >
                                 <Image
-                                    src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${img.url}`}
+                                    src={img.url}
                                     layout="fill"
                                     objectFit="cover"
                                 // objectPosition="center bottom"
@@ -406,7 +406,7 @@ const StripesSticky = ({ rootRef, invitation, images, description, openLightbox 
 
                     <div ref={invitationRef} className="flex-grow sticky top-[88px] w-1/2">
                         <Image
-                            src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${invitation.url}`}
+                            src={invitation.url}
                             width={invitation.width}
                             height={invitation.height}
                             layout="responsive"
@@ -439,7 +439,7 @@ const StripesSticky = ({ rootRef, invitation, images, description, openLightbox 
                                     }}
                                 >
                                     <Image
-                                        src={`${process.env.NEXT_PUBLIC_CMS_BASE_URL}${img.url}`}
+                                        src={img.url}
                                         layout="fill"
                                         objectFit="cover"
                                         quality={50}

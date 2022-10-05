@@ -1,19 +1,26 @@
 import Head from 'next/head'
 import Image from 'next/image'
 
-// import hero from "../public/index_hero.jpg";
-// import hero from "../public/index_hero_kaminsky_xp_3.jpg";
-import hero from "../public/BEASTRO_pozvanka_fb_uzovic.jpg";
+import { loadIndexFlyer } from "../lib/utils";
 
-export default function Home({ }) {
+export async function getStaticProps(context) {
 
-    const { width, height } = hero;
+    const indexFlyer = await loadIndexFlyer();
+
+    return {
+        props: { indexFlyer }
+    }
+}
+
+export default function Home(props) {
+
+    const { width, height, url } = props.indexFlyer;
     
     return (
         <div className="m-auto pt-2 pb-2 flex justify-center items-center max-w-3xl min-h-[calc(100vh-80px)]">
             <div className="relative mr-2 ml-2 flex-grow shadow-lg bg-gray-50">
                 <Image
-                    src={hero}
+                    src={url}
                     width={width}
                     height={height}
                     layout="responsive"
