@@ -8,7 +8,6 @@ import Lightbox from "../components/lightbox";
 export async function getStaticProps(context) {
 
     const moments = await loadMoments();
-    console.log(moments);
 
     const data = moments;
 
