@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect, createRef } from "react";
 import Image from "next/image";
 
-import arrowLeft from "../iconmonstr-arrow-79.svg"
-import arrowRight from "../iconmonstr-arrow-37.svg"
+import arrowLeft from "../public/icons/arrow_left.svg"
+import arrowRight from "../public/icons/arrow_right.svg"
 
 
 

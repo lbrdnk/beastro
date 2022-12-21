@@ -7,9 +7,6 @@ const breakpoints = {
     xxl: 1280
 }
 
-// images
-import beastroTypoLogo from '../public/beastro_type.jpg';
-import beastroSquareLogo from '../public/beastro_square.jpg';
 const computeScaledDimension = (origDimensions, newDimensions) => {
 
     const { width: origWidth, height: origHeight } = origDimensions;

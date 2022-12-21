@@ -4,8 +4,7 @@ import Image from "next/image";
 
 import Styling from "./styling"
 
-import beastroType from '../public/beastro_type.jpg';
-import beastroSquare from '../public/beastro_square.jpg';
+import beastroType from '../public/beastro/beastro_logo_land.jpg';
 
 const menuItems = [
     {
