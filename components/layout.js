@@ -1,11 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
-
+import React, { useEffect, useState } from "react";
 import Header from './header'
 import Styling from "./styling";
-
-// useWindowSize, reportWindowSize
 
 const layoutMode = {
     na: "na",
@@ -22,8 +17,6 @@ const isMobile = mode => [layoutMode.sm, layoutMode.md].findIndex(mobileMode => 
 
 const reportLayoutMode = ({ width, height }) => {
 
-    // console.log(arguments)
-
     if (arguments.legth === 0) {
         throw (new Error("Argument mismatch"))
     }
@@ -35,7 +28,6 @@ const reportLayoutMode = ({ width, height }) => {
     if (!arguments[0]) {
         throw (new Error("Argument mismatch"));
     }
-    // arguments other than numbers
     if ((typeof width) !== "number" || (typeof height) !== "number") {
         throw (new Error("Argument mismatch"));
     }
@@ -58,7 +50,6 @@ const useLayoutMode = () => {
 
     const [mode, setMode] = useState(layoutMode.na)
     useEffect(() => {
-        // console.log(window.innerWidth)
         setMode(reportLayoutMode({ width: window.innerWidth, height: window.innerHeight }));
         const updateLayoutMode = () => setMode(reportLayoutMode({ width: window.innerWidth, height: window.innerHeight }));
         window.addEventListener("resize", updateLayoutMode);
@@ -71,12 +62,7 @@ const useLayoutMode = () => {
 export default function Layout({ children }) {
 
     const mode = useLayoutMode();
-    // TODO spravit to ako hook aby sa to menilo len PRI ZMENE NA INU HODNOTU, tj nie rovnaku
     const layout = isMobile(mode) ? layouts.mobile : layouts.desktop;
-    // console.log(mode)
-    // console.log(isMobile(mode))
-
-    // console.log(process.env.NODE_ENV)
 
     const [isMenuOpened, setIsMenuOpened] = useState(false)
 

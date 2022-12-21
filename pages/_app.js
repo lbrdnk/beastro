@@ -3,9 +3,6 @@ import Head from "next/head";
 import '../styles/globals.css'
 import Layout from '../components/layout';
 
-// import SimpleReactLightbox from 'simple-react-lightbox'
-
-
 function MyApp({ Component, pageProps }) {
   return (
     <>
@@ -24,9 +21,7 @@ function MyApp({ Component, pageProps }) {
 
       </Head>
       <Layout>
-        {/* <SimpleReactLightbox> */}
           <Component {...pageProps} />
-        {/* </SimpleReactLightbox> */}
       </Layout>
     </>
   )
