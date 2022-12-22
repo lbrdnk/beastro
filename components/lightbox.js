@@ -58,6 +58,7 @@ function Lightbox({ initialSelectedId, images, closeFn, ...props }) {
                                             layout="fill"
                                             objectFit="cover"
                                             priority
+                                            quality={5}
                                         // className="hidden"
                                         />
                                     </div>
@@ -85,6 +86,7 @@ function Lightbox({ initialSelectedId, images, closeFn, ...props }) {
                                             layout="fill"
                                             objectFit="cover"
                                             priority
+                                            quality={5}
                                         // className="hidden"
                                         />
                                     </div>
@@ -157,7 +159,7 @@ function Lightbox({ initialSelectedId, images, closeFn, ...props }) {
 
                     ) : null}
 
-                    <div className="absolute h-16 w-16 shadow-lg top-[8px] right-[8px] bg-white" onClick={closeFn}>
+                    <div className="absolute h-16 w-16 shadow-lg top-[8px] right-[8px] bg-white cursor-pointer" onClick={closeFn}>
                         <span
                             className="w-full h-full align-middle flex items-center justify-center text-center text-3xl text-gray-500"
                         >

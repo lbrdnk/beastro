@@ -76,7 +76,7 @@ export default function Moments({
                                 {colPhotoArr.map((photo, index) => (
                                     <div
                                         key={photo.id}
-                                        className="relative shadow-lg"
+                                        className="relative shadow-lg cursor-pointer"
                                         onClick={() => {
                                             setSelectedLightboxImageId(photo.id);
                                             setIsLightBoxOpened(true);

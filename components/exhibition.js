@@ -79,7 +79,7 @@ const StripesSticky = ({ rootRef, invitation, images, description, openLightbox 
         >
             <div className="flex w-full flex-row items-start gap-x-2">
                 {invitation ? (
-                    <div ref={invitationRef} className="flex-grow sticky top-[88px] w-1/2">
+                    <div ref={invitationRef} className="flex-grow sticky top-[88px] w-1/2 cursor-pointer">
                         <Image
                             src={invitation.url}
                             width={invitation.width}
@@ -103,7 +103,7 @@ const StripesSticky = ({ rootRef, invitation, images, description, openLightbox 
                             return (
                                 <div
                                     key={img.id}
-                                    className="relative flex-grow shadow-xl"
+                                    className="relative flex-grow shadow-xl cursor-pointer"
                                     onClick={() => openLightbox(img.id)}
                                     style={{
                                         height: `${invitationHeight > 256 ? invitationHeight : 384}px`,
