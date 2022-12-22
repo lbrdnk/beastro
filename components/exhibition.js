@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import React from "react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 
 
 const StripesSticky = ({ rootRef, invitation, images, description, openLightbox }) => {

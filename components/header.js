@@ -38,39 +38,37 @@ export default function Header({ isMenuOpened, setIsMenuOpened, ...props }) {
             <div className="relative flex space-x-2 justify-between items-end max-w-3xl w-full pl-2 pr-2">
 
                 {/* logo */}
-                <Link href="/">
-                    <a className="">
-                        <Styling.Img
-                            src={beastroType}
-                            width={
-                                Styling.computeScaledDimension({
-                                    width: beastroType.width,
-                                    height: beastroType.height
-                                }, {
-                                    height: 64
-                                }).width
-                            }
-                            height={64}
-                            className="shadow-lg mb-2"
-                            priority
-                        />
-                    </a>
+                <Link href="/" className="">
+
+                    <Styling.Img
+                        src={beastroType}
+                        width={
+                            Styling.computeScaledDimension({
+                                width: beastroType.width,
+                                height: beastroType.height
+                            }, {
+                                height: 64
+                            }).width
+                        }
+                        height={64}
+                        className="shadow-lg mb-2"
+                        priority
+                    />
+
                 </Link>
 
                 {/* navigation container */}
                 <div className="flex space-x-2 mb-2 h-8">
                     {menuItems.map(({ title, path }, index) => {
                         return (
-                            <Link
+                            (<Link
                                 key={title}
                                 href={path}
-                                className="cursor-pointer"
+                                className="cursor-pointer text-nav bg-white shadow-lg pl-0.5 border-transparent h-8"
                             >
-                                <a className={"text-nav bg-white shadow-lg pl-0.5 border-transparent h-8"}>
-                                    {title}
-                                </a>
-                            </Link>
-                        )
+                                {title}
+                            </Link>)
+                        );
                     })}
                 </div>
 
@@ -99,18 +97,21 @@ export default function Header({ isMenuOpened, setIsMenuOpened, ...props }) {
                         {true && <div className="flex flex-col justify-end items-start flex-grow space-y-2">
                             {menuItems.map(({ title, path }, index) => {
                                 return (
-                                    <Link key={title} href={path}>
-                                        <a className={"text-nav bg-white shadow-lg pl-0.5 border-transparent h-8"}>
-                                            {title}
-                                        </a>
-                                    </Link>
-                                )
+                                    (<Link
+                                        key={title}
+                                        href={path}
+                                        className={"text-nav bg-white shadow-lg pl-0.5 border-transparent h-8"}>
+
+                                        {title}
+
+                                    </Link>)
+                                );
                             })}
                         </div>}
 
                         {/* logo */}
                         <div className="h-20 flex items-end">
-                            <Link href="/">
+                            <Link href="/" legacyBehavior>
                                 <Styling.Img
                                     src={beastroType}
                                     width={

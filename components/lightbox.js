@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 
 import arrowLeft from "../public/icons/arrow_left.svg"
 import arrowRight from "../public/icons/arrow_right.svg"
