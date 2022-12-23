@@ -1,5 +1,6 @@
 import { useState } from "react";
-import Image from "next/legacy/image";
+import LegacyImage from "next/legacy/image";
+import Image from "next/image"
 
 import arrowLeft from "../public/icons/arrow_left.svg"
 import arrowRight from "../public/icons/arrow_right.svg"
@@ -21,10 +22,6 @@ function Lightbox({ initialSelectedId, images, closeFn, ...props }) {
     const nextImgIndex = selectedImgIndex + 1;
     const nextImg = nextImgIndex < images.length ? images[nextImgIndex] : null;
 
-    const nextNextImg = selectedImgIndex + 2 < images.length ? images[selectedImgIndex + 2] : null;
-
-    const prevPrevImg = selectedImgIndex - 2 >= 0 ? images[selectedImgIndex - 2] : null;
-
     const selectImage = addend => {
         const newIndex = selectedImgIndex + addend;
         if (newIndex < 0 || newIndex >= images.length) {
@@ -40,34 +37,30 @@ function Lightbox({ initialSelectedId, images, closeFn, ...props }) {
                 {/* stretch grow? */}
                 <div className="relative h-full w-full flex">
 
-                    <div className="relative w-1/2 filter blur-sm">
-                        {prevImg ? (
-                            <>
-
-                                <Image
-                                    src={prevImg.url}
-                                    layout="fill"
-                                    objectFit="cover"
-                                    className=""
-                                />
-
-                            </>
-                        ) : null}
+                    <div className="relative w-1/2 bg-red-100 opacity-25">
+                        {// wrapped in case null is prev image and url not derefable
+                         // cache for "central" image should be used here but not in next
+                            prevImg && <Image
+                                src={prevImg.url}
+                                fill
+                                sizes={"10vw"}
+                                alt="cicimbrus"
+                                className="w-full object-cover"
+                            />
+                        }
                     </div>
 
-                    <div className="relative w-1/2 filter blur-sm">
-                        {nextImg ? (
-                            <>
-
-                                <Image
-                                    src={nextImg.url}
-                                    layout="fill"
-                                    objectFit="cover"
-                                    className=""
-                                />
-
-                            </>
-                        ) : null}
+                    <div className="relative w-1/2 border-green-100 opacity-25">
+                        {// wrapped in case null is prev image and url not derefable
+                            nextImg && <Image
+                                src={nextImg.url}
+                                fill
+                                sizes={"10vw"}
+                                alt="cicimbrus"
+                                className="w-full object-cover"
+                                priority
+                            />
+                        }
                     </div>
 
                     {true ? (
@@ -85,7 +78,7 @@ function Lightbox({ initialSelectedId, images, closeFn, ...props }) {
                                     onClick={() => selectImage(-1)}
                                 >
                                     <div className="relative h-full w-full">
-                                        <Image
+                                        <LegacyImage
                                             src={arrowLeft.src}
                                             layout="fill"
                                             objectFit="contain"
@@ -99,7 +92,7 @@ function Lightbox({ initialSelectedId, images, closeFn, ...props }) {
                                         flexGrow: 1
                                     }}
                                 >
-                                    <Image
+                                    <LegacyImage
                                         src={selectedImg.url}
                                         // width={selectedImg.width}
                                         // height={selectedImg.height}
@@ -119,7 +112,7 @@ function Lightbox({ initialSelectedId, images, closeFn, ...props }) {
                                     onClick={() => selectImage(1)}
                                 >
                                     <div className="relative h-full w-full">
-                                        <Image
+                                        <LegacyImage
                                             src={arrowRight.src}
                                             layout="fill"
                                             objectFit="contain"
