@@ -14,9 +14,7 @@
     "next": "^13.0.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "sharp": "^0.29.3",
-    "simple-react-lightbox": "^3.6.9-0",
-    "swr": "^1.1.2-beta.0"
+    "sharp": "^0.29.3"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
