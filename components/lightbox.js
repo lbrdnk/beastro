@@ -51,19 +51,6 @@ function Lightbox({ initialSelectedId, images, closeFn, ...props }) {
                                     className=""
                                 />
 
-                                {prevPrevImg ? (
-                                    <div className="relative w-1/2 filter blur-sm">
-                                        <Image
-                                            src={prevPrevImg.url}
-                                            layout="fill"
-                                            objectFit="cover"
-                                            priority
-                                            quality={5}
-                                        // className="hidden"
-                                        />
-                                    </div>
-                                ) : null}
-
                             </>
                         ) : null}
                     </div>
@@ -78,19 +65,6 @@ function Lightbox({ initialSelectedId, images, closeFn, ...props }) {
                                     objectFit="cover"
                                     className=""
                                 />
-
-                                {nextNextImg ? (
-                                    <div className="relative w-1/2 filter blur-sm">
-                                        <Image
-                                            src={nextNextImg.url}
-                                            layout="fill"
-                                            objectFit="cover"
-                                            priority
-                                            quality={5}
-                                        // className="hidden"
-                                        />
-                                    </div>
-                                ) : null}
 
                             </>
                         ) : null}
