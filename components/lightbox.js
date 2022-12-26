@@ -64,6 +64,9 @@ function Lightbox({ initialSelectedId, images, closeFn, ...props }) {
         )
     }, [selectedImgId])
 
+    const isMainImgLast = selectedImgIndex + 1 === images.length
+    const isMainImgFirst = selectedImgIndex === 0
+
     return (
         <>
             {/* container for padding and wh setting only */}
@@ -112,14 +115,16 @@ function Lightbox({ initialSelectedId, images, closeFn, ...props }) {
                                     }}
                                     onClick={() => selectImage(-1)}
                                 >
-                                    <div className="relative h-full w-full">
-                                        <LegacyImage
-                                            src={arrowLeft.src}
-                                            layout="fill"
-                                            objectFit="contain"
-                                            className="opacity-50"
-                                        />
-                                    </div>
+                                    {!isMainImgFirst &&
+                                        <div className="relative h-full w-full">
+                                            <LegacyImage
+                                                src={arrowLeft.src}
+                                                layout="fill"
+                                                objectFit="contain"
+                                                className="opacity-50"
+                                            />
+                                        </div>
+                                    }
                                 </div>
 
                                 <div
@@ -153,14 +158,16 @@ function Lightbox({ initialSelectedId, images, closeFn, ...props }) {
                                     }}
                                     onClick={() => selectImage(1)}
                                 >
-                                    <div className="relative h-full w-full">
-                                        <LegacyImage
-                                            src={arrowRight.src}
-                                            layout="fill"
-                                            objectFit="contain"
-                                            className="opacity-50"
-                                        />
-                                    </div>
+                                    {!isMainImgLast &&
+                                        <div className="relative h-full w-full">
+                                            <LegacyImage
+                                                src={arrowRight.src}
+                                                layout="fill"
+                                                objectFit="contain"
+                                                className="opacity-50"
+                                            />
+                                        </div>
+                                    }
                                 </div>
 
                             </div>
