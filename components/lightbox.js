@@ -1,9 +1,26 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import LegacyImage from "next/legacy/image";
 import Image from "next/image"
 
 import arrowLeft from "../public/icons/arrow_left.svg"
 import arrowRight from "../public/icons/arrow_right.svg"
+
+export function boxFittingDimensions(ow, oh, iw, ih) {
+    // transform rectangle's sides' lengths iw, ih with aspect ratio
+    // unmodified, so it will fit into rect ow, oh
+    //
+    // original, inner
+    //
+    // picking min -- works because
+    // if coef > 1 sides are to be enlarged. While enlarging intuition is
+    // to enlarge least we can.
+    // largest iw or ih wont become bigger than its o_ counterpart
+    //
+    // when downsizing (coef < 1), downsize MOST
+    // biggest iw or ih must fit
+    const coef = Math.min(ow / iw, oh / ih)
+    return [iw * coef, ih * coef]
+}
 
 function Lightbox({ initialSelectedId, images, closeFn, ...props }) {
 
@@ -27,8 +44,25 @@ function Lightbox({ initialSelectedId, images, closeFn, ...props }) {
         if (newIndex < 0 || newIndex >= images.length) {
             return
         }
+        setMainImgDesriedDims([])
         setSelectedImgId(images[newIndex].id)
     }
+
+    // need ref to box where image will be rendered
+    //
+    // TODO upscaling onReisze
+    const mainImgContainerRef = useRef(null);
+    const [mainImgDesriedDims, setMainImgDesriedDims] = useState([]);
+    useEffect(() => {
+        setMainImgDesriedDims(
+            boxFittingDimensions(
+                mainImgContainerRef.current.offsetWidth,
+                mainImgContainerRef.current.offsetHeight,
+                selectedImg.width,
+                selectedImg.height
+            )
+        )
+    }, [selectedImgId])
 
     return (
         <>
@@ -38,12 +72,13 @@ function Lightbox({ initialSelectedId, images, closeFn, ...props }) {
                 <div className="relative h-full w-full flex">
 
                     <div className="relative w-1/2 bg-red-100 opacity-25">
-                        {// wrapped in case null is prev image and url not derefable
-                         // cache for "central" image should be used here but not in next
+                        {
+                            // wrapped for case null is prev image and url not derefable
+                            // cache for "central" image should be used here but not in next
                             prevImg && <Image
                                 src={prevImg.url}
                                 fill
-                                sizes={"10vw"}
+                                sizes={"50vw"}
                                 alt="cicimbrus"
                                 className="w-full object-cover"
                             />
@@ -55,7 +90,7 @@ function Lightbox({ initialSelectedId, images, closeFn, ...props }) {
                             nextImg && <Image
                                 src={nextImg.url}
                                 fill
-                                sizes={"10vw"}
+                                sizes={"50vw"}
                                 alt="cicimbrus"
                                 className="w-full object-cover"
                                 priority
@@ -87,19 +122,26 @@ function Lightbox({ initialSelectedId, images, closeFn, ...props }) {
                                     </div>
                                 </div>
 
-                                <div className="relative"
+                                <div
+                                    ref={mainImgContainerRef}
+                                    className="relative"
                                     style={{
                                         flexGrow: 1
                                     }}
                                 >
-                                    <LegacyImage
-                                        src={selectedImg.url}
-                                        // width={selectedImg.width}
-                                        // height={selectedImg.height}
-                                        // layout="responsive"
-                                        layout="fill"
-                                        objectFit="contain"
-                                    />
+                                    {/* show image right after we do have desired image dimensions
+                                        to fit in bounding box
+                                      */}
+                                    {mainImgDesriedDims.length === 2 &&
+                                        <Image
+                                            src={selectedImg.url}
+                                            fill
+                                            sizes={`${parseInt(mainImgDesriedDims[0])}px`}
+                                            alt="cicimbrus"
+                                            className="object-contain"
+                                            priority
+                                        />
+                                    }
                                 </div>
 
                                 {/* sipka */}
