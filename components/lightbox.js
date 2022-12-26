@@ -67,6 +67,7 @@ function Lightbox({ initialSelectedId, images, closeFn, ...props }) {
     const isMainImgLast = selectedImgIndex + 1 === images.length
     const isMainImgFirst = selectedImgIndex === 0
 
+    // TODO rem redundant divs, bg images residue
     return (
         <>
             {/* container for padding and wh setting only */}
@@ -74,107 +75,76 @@ function Lightbox({ initialSelectedId, images, closeFn, ...props }) {
                 {/* stretch grow? */}
                 <div className="relative h-full w-full flex">
 
-                    <div className="relative w-1/2 bg-red-100 opacity-25">
-                        {
-                            // wrapped for case null is prev image and url not derefable
-                            // cache for "central" image should be used here but not in next
-                            prevImg && <Image
-                                src={prevImg.url}
-                                fill
-                                sizes={"50vw"}
-                                alt="cicimbrus"
-                                className="w-full object-cover"
-                            />
-                        }
-                    </div>
+                    <div className="absolute left-[8px] right-[8px] ml-auto mr-auto top-[8px] bottom-[8px] mt-auto mb-auto">
+                        {/* inner flex */}
+                        <div className="flex space-x-2 w-full h-full">
 
-                    <div className="relative w-1/2 border-green-100 opacity-25">
-                        {// wrapped in case null is prev image and url not derefable
-                            nextImg && <Image
-                                src={nextImg.url}
-                                fill
-                                sizes={"50vw"}
-                                alt="cicimbrus"
-                                className="w-full object-cover"
-                                priority
-                            />
-                        }
-                    </div>
+                            {/* sipka */}
+                            <div
+                                className="relative max-w-[32px] md:max-w-[128px] h-[100%] flex-grow"
+                                style={{
+                                    flexGrow: 1,
+                                    // maxWidth: "128px"
+                                }}
+                                onClick={() => selectImage(-1)}
+                            >
+                                {!isMainImgFirst &&
+                                    <div className="relative h-full w-full">
+                                        <LegacyImage
+                                            src={arrowLeft.src}
+                                            layout="fill"
+                                            objectFit="contain"
+                                            className="opacity-50"
+                                        />
+                                    </div>
+                                }
+                            </div>
 
-                    {true ? (
-                        <div className="absolute left-[8px] right-[8px] ml-auto mr-auto top-[8px] bottom-[8px] mt-auto mb-auto">
-                            {/* inner flex */}
-                            <div className="flex space-x-2 w-full h-full">
-
-                                {/* sipka */}
-                                <div
-                                    className="relative max-w-[32px] md:max-w-[128px] h-[100%] flex-grow"
-                                    style={{
-                                        flexGrow: 1,
-                                        // maxWidth: "128px"
-                                    }}
-                                    onClick={() => selectImage(-1)}
-                                >
-                                    {!isMainImgFirst &&
-                                        <div className="relative h-full w-full">
-                                            <LegacyImage
-                                                src={arrowLeft.src}
-                                                layout="fill"
-                                                objectFit="contain"
-                                                className="opacity-50"
-                                            />
-                                        </div>
-                                    }
-                                </div>
-
-                                <div
-                                    ref={mainImgContainerRef}
-                                    className="relative"
-                                    style={{
-                                        flexGrow: 1
-                                    }}
-                                >
-                                    {/* show image right after we do have desired image dimensions
+                            <div
+                                ref={mainImgContainerRef}
+                                className="relative"
+                                style={{
+                                    flexGrow: 1
+                                }}
+                            >
+                                {/* show image right after we do have desired image dimensions
                                         to fit in bounding box
                                       */}
-                                    {mainImgDesriedDims.length === 2 &&
-                                        <Image
-                                            src={selectedImg.url}
-                                            fill
-                                            sizes={`${parseInt(mainImgDesriedDims[0])}px`}
-                                            alt="cicimbrus"
-                                            className="object-contain"
-                                            priority
-                                        />
-                                    }
-                                </div>
-
-                                {/* sipka */}
-                                <div
-                                    className="relative max-w-[32px] md:max-w-[128px] h-[100%] flex-grow"
-                                    style={{
-                                        flexGrow: 1,
-                                        // maxWidth: "128px"
-                                    }}
-                                    onClick={() => selectImage(1)}
-                                >
-                                    {!isMainImgLast &&
-                                        <div className="relative h-full w-full">
-                                            <LegacyImage
-                                                src={arrowRight.src}
-                                                layout="fill"
-                                                objectFit="contain"
-                                                className="opacity-50"
-                                            />
-                                        </div>
-                                    }
-                                </div>
-
+                                {mainImgDesriedDims.length === 2 &&
+                                    <Image
+                                        src={selectedImg.url}
+                                        fill
+                                        sizes={`${parseInt(mainImgDesriedDims[0])}px`}
+                                        alt="cicimbrus"
+                                        className="object-contain"
+                                        priority
+                                    />
+                                }
                             </div>
+
+                            {/* sipka */}
+                            <div
+                                className="relative max-w-[32px] md:max-w-[128px] h-[100%] flex-grow"
+                                style={{
+                                    flexGrow: 1,
+                                    // maxWidth: "128px"
+                                }}
+                                onClick={() => selectImage(1)}
+                            >
+                                {!isMainImgLast &&
+                                    <div className="relative h-full w-full">
+                                        <LegacyImage
+                                            src={arrowRight.src}
+                                            layout="fill"
+                                            objectFit="contain"
+                                            className="opacity-50"
+                                        />
+                                    </div>
+                                }
+                            </div>
+
                         </div>
-
-                    ) : null}
-
+                    </div>
                     <div className="absolute h-16 w-16 shadow-lg top-[8px] right-[8px] bg-white cursor-pointer" onClick={closeFn}>
                         <span
                             className="w-full h-full align-middle flex items-center justify-center text-center text-3xl text-gray-500"
