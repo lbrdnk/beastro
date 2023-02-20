@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 import Styling from "./styling"
@@ -17,6 +17,46 @@ const menuItems = [
 ];
 
 export default function Header({ isMenuOpened, setIsMenuOpened, ...props }) {
+
+    // DONE add ref for menu
+    // DONE only collapse menu when clicked 1. either on menu link 2. or outside of menu, but avoid opening lightbox
+
+    // TODO keyboard handling for 
+
+    const headerBoxRef = useRef(null);
+    const transparentOverlayRef = useRef(null);
+
+    const clickHandler = useCallback(e => {
+        // console.log("handler pressed")
+        // console.log(e.target)
+        // console.log(headerBoxRef.current)
+        // console.log(e.target === headerBoxRef.current)
+        if (e.target !== headerBoxRef.current
+            || e.target === transparentOverlayRef.current) {
+            setIsMenuOpened(!isMenuOpened)
+        }
+        // Following is just theory
+        //
+        // It is essential to stop propagation here. If it was not the case, the effect adding listener could
+        // complete prior to event bubbling to window, hence clickHandler would be called again, resulting
+        // in immediate toggle isMenuOpened back to previous value.
+        e.stopPropagation()
+        // e.stopImmediatePropagation()
+    }, [isMenuOpened, setIsMenuOpened])
+
+    useEffect(() => {
+        // console.log("is menu" + isMenuOpened)
+        // console.log("handler" + clickHandler)
+        // console.log("isMenu changed")
+        if (isMenuOpened) {
+            // setTimeout(() => window.addEventListener("click", clickHandler), 200)
+            window.addEventListener("click", clickHandler)
+        }
+        return () => {
+            // setTimeout(() => window.removeEventListener("click", clickHandler), 200)
+            window.removeEventListener("click", clickHandler)
+        }
+    }, [isMenuOpened, clickHandler])
 
     const [innerWidth, setInnerWidth] = useState(undefined)
 
@@ -81,6 +121,10 @@ export default function Header({ isMenuOpened, setIsMenuOpened, ...props }) {
         <>
             {/* placeholder in document flow for header, hence header is fixed position */}
             <div className="w-full h-20"></div>
+            {/* Absolute transparent whole doc box to handle clicks when menu is opened.
+                z-index must be <= 20 and > auto
+              */}
+            {isMenuOpened && <div className="fixed top-0 z-10 w-screen h-screen" ref={transparentOverlayRef} />}
             {/* actual content */}
             <div className={
                 "transition-all z-20 w-full flex justify-center bg-gray-50 shadow-lg" +
@@ -88,7 +132,10 @@ export default function Header({ isMenuOpened, setIsMenuOpened, ...props }) {
             }>
 
                 {/* content container -- space between logo with nav, max content width */}
-                <div className="relative flex space-x-2 justify-between items-end max-w-3xl w-full pl-2 pr-2">
+                <div
+                    className="relative flex space-x-2 justify-between items-end max-w-3xl w-full pl-2 pr-2"
+                    ref={headerBoxRef}
+                >
 
                     <div className="flex flex-col justify-end items-start space-y-2">
 
@@ -131,7 +178,9 @@ export default function Header({ isMenuOpened, setIsMenuOpened, ...props }) {
                     </div>
 
                     {/* hamburger */}
-                    <div className="h-16 w-16 shadow-lg mb-2 bg-white" onClick={() => setIsMenuOpened(!isMenuOpened)}>
+                    <div className="h-16 w-16 shadow-lg mb-2 bg-white"
+                        onClick={clickHandler}
+                    >
                         <span
                             className="w-full h-full align-middle flex items-center justify-center text-center text-3xl text-gray-500"
                         >
