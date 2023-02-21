@@ -24,7 +24,9 @@ export function boxFittingDimensions(ow, oh, iw, ih) {
 
 function Lightbox({ initialSelectedId, images, closeFn, ...props }) {
 
-    // TODO keyboard handling for desktop
+    // DONE keyboard handling for desktop
+
+    // TODO cleanup
 
     const [selectedImgId, setSelectedImgId] = useState(initialSelectedId);
 
@@ -77,10 +79,37 @@ function Lightbox({ initialSelectedId, images, closeFn, ...props }) {
         // console.log(lightboxBoxRef.current)
         e.preventDefault();
         // e.stopPropagation();
-        console.log(e)
+        // console.log(e)
         // return false
     }, [
         // lightboxBoxRef,
+    ])
+
+    const handleKeys = useCallback(e => {
+
+        // console.log(e)
+
+        e.preventDefault()
+        e.stopPropagation()
+
+        switch (e?.key) {
+            case "ArrowRight":
+                selectImage(1);
+                break;
+            case "ArrowLeft":
+                selectImage(-1);
+                break;
+            case "Escape":
+                closeFn()
+                break;
+            default:
+                break;
+        }
+
+    }, [
+        // lightboxBoxRef,
+        selectImage,
+        closeFn
     ])
 
     // empty deps list is ok?
@@ -109,10 +138,13 @@ function Lightbox({ initialSelectedId, images, closeFn, ...props }) {
         // document.body.className += " fixed overflow-hidden"
         // document.body.style.top = window.scrollY
 
+        window.addEventListener("keydown", handleKeys)
 
-        document.addEventListener("wheel", handleScroll, {passive: false, capture: true})
-        document.addEventListener("touchmove", handleScroll, {passive: false, capture: true})
-        document.addEventListener("scroll", handleScroll, {passive: false, capture: true})
+        document.addEventListener("wheel", handleScroll, { passive: false, capture: true })
+        document.addEventListener("touchmove", handleScroll, { passive: false, capture: true })
+        document.addEventListener("scroll", handleScroll, { passive: false, capture: true })
+
+
 
 
         return () => {
@@ -133,12 +165,14 @@ function Lightbox({ initialSelectedId, images, closeFn, ...props }) {
             // console.log("listener removed")
 
 
-            document.removeEventListener("wheel", handleScroll, {passive: false, capture: true})
-            document.removeEventListener("touchmove", handleScroll, {passive: false, capture: true})
-            document.removeEventListener("scroll", handleScroll, {passive: false, capture: true})
+            document.removeEventListener("wheel", handleScroll, { passive: false, capture: true })
+            document.removeEventListener("touchmove", handleScroll, { passive: false, capture: true })
+            document.removeEventListener("scroll", handleScroll, { passive: false, capture: true })
+
+            window.removeEventListener("keydown", handleKeys)
 
         }
-    }, [])
+    }, [handleKeys, handleScroll])
 
     // TODO rem redundant divs, bg images residue
     return (
