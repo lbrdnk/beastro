@@ -28,6 +28,8 @@ function Lightbox({ initialSelectedId, images, closeFn, ...props }) {
 
     // TODO cleanup
 
+    const [isImgLoading, setIsImgLoading] = useState(true);
+
     const [selectedImgId, setSelectedImgId] = useState(initialSelectedId);
 
     const selectedImgIndex = images.findIndex(({ id }) => id === selectedImgId)
@@ -50,6 +52,7 @@ function Lightbox({ initialSelectedId, images, closeFn, ...props }) {
         }
         setMainImgDesriedDims([])
         setSelectedImgId(images[newIndex].id)
+        setIsImgLoading(true)
     }
 
     // need ref to box where image will be rendered
@@ -214,11 +217,9 @@ function Lightbox({ initialSelectedId, images, closeFn, ...props }) {
 
                             <div
                                 ref={mainImgContainerRef}
-                                className="relative"
-                                style={{
-                                    flexGrow: 1
-                                }}
+                                className="relative flex justify-center items-center flex-grow"
                             >
+                                {isImgLoading && <p className="absolute bg-pink-100">loading...</p>}
                                 {/* show image right after we do have desired image dimensions
                                         to fit in bounding box
                                       */}
@@ -230,6 +231,8 @@ function Lightbox({ initialSelectedId, images, closeFn, ...props }) {
                                         alt="lightbox img"
                                         className="object-contain"
                                         priority
+                                        // placeholder="blur"
+                                        onLoadingComplete={() => setIsImgLoading(false)}
                                     />
                                 }
                             </div>
