@@ -21,8 +21,6 @@ export default function Header({ isMenuOpened, setIsMenuOpened, ...props }) {
     // DONE add ref for menu
     // DONE only collapse menu when clicked 1. either on menu link 2. or outside of menu, but avoid opening lightbox
 
-    // TODO keyboard handling for 
-
     const headerBoxRef = useRef(null);
     const transparentOverlayRef = useRef(null);
 

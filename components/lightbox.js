@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import LegacyImage from "next/legacy/image";
 import Image from "next/image"
 
-import arrowLeft from "../public/icons/arrow_left.svg"
-import arrowRight from "../public/icons/arrow_right.svg"
+// import { MdOutlineArrowLeft, MdOutlineArrowRight } from "react-icons/md";
+import { AiOutlineCaretRight, AiOutlineCaretLeft } from "react-icons/ai";
 
 export function boxFittingDimensions(ow, oh, iw, ih) {
     // transform rectangle's sides' lengths iw, ih with aspect ratio
@@ -23,6 +23,8 @@ export function boxFittingDimensions(ow, oh, iw, ih) {
 }
 
 function Lightbox({ initialSelectedId, images, closeFn, ...props }) {
+
+    // TODO keyboard handling for desktop
 
     const [selectedImgId, setSelectedImgId] = useState(initialSelectedId);
 
@@ -89,14 +91,19 @@ function Lightbox({ initialSelectedId, images, closeFn, ...props }) {
                                 onClick={() => selectImage(-1)}
                             >
                                 {!isMainImgFirst &&
-                                    <div className="relative h-full w-full">
-                                        <LegacyImage
-                                            src={arrowLeft.src}
-                                            layout="fill"
-                                            objectFit="contain"
-                                            className="opacity-50"
-                                        />
+                                    <div className="h-full w-full flex justify-center items-center">
+                                        {/* <AiOutlineCaretLeft size={32} color="red" title="next" /> */}
+                                        <AiOutlineCaretLeft style={{width: "100%", height: "100%"}} color="red" title="next" />
                                     </div>
+                                    // <MdOutlineArrowLeft />
+                                    // <div className="relative h-full w-full">
+                                    //     <LegacyImage
+                                    //         src={arrowLeft.src}
+                                    //         layout="fill"
+                                    //         objectFit="contain"
+                                    //         className="opacity-50"
+                                    //     />
+                                    // </div>
                                 }
                             </div>
 
@@ -115,7 +122,7 @@ function Lightbox({ initialSelectedId, images, closeFn, ...props }) {
                                         src={selectedImg.url}
                                         fill
                                         sizes={`${parseInt(mainImgDesriedDims[0])}px`}
-                                        alt="cicimbrus"
+                                        alt="lightbox img"
                                         className="object-contain"
                                         priority
                                     />
@@ -132,13 +139,10 @@ function Lightbox({ initialSelectedId, images, closeFn, ...props }) {
                                 onClick={() => selectImage(1)}
                             >
                                 {!isMainImgLast &&
-                                    <div className="relative h-full w-full">
-                                        <LegacyImage
-                                            src={arrowRight.src}
-                                            layout="fill"
-                                            objectFit="contain"
-                                            className="opacity-50"
-                                        />
+                                    <div className="h-full w-full flex  justify-center items-center">
+                                        {/* <div className="h-[64px] w-[128px] overflow-hidden flex justify-center items-center"> */}
+                                        <AiOutlineCaretRight style={{width: "100%", height: "100%"}} color="red" title="next" />
+                                        {/* </div> */}
                                     </div>
                                 }
                             </div>
@@ -159,3 +163,11 @@ function Lightbox({ initialSelectedId, images, closeFn, ...props }) {
 }
 
 export default Lightbox;
+
+
+/*
+
+size={500}
+
+[300px] left-[-300px]
+*/
