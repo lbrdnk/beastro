@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import LegacyImage from "next/legacy/image";
 import Image from "next/image"
 
@@ -69,6 +69,77 @@ function Lightbox({ initialSelectedId, images, closeFn, ...props }) {
     const isMainImgLast = selectedImgIndex + 1 === images.length
     const isMainImgFirst = selectedImgIndex === 0
 
+    // console.log(parentRef)
+
+    // const lightboxBoxRef = useRef(null);
+
+    const handleScroll = useCallback(e => {
+        // console.log(lightboxBoxRef.current)
+        e.preventDefault();
+        // e.stopPropagation();
+        console.log(e)
+        // return false
+    }, [
+        // lightboxBoxRef,
+    ])
+
+    // empty deps list is ok?
+    useEffect(() => {
+        // console.log("listener added")
+        // document.addEventListener("scroll", handleScroll, true)
+        //
+        // document.addEventListener("scroll", handleScroll, false)
+        // document.addEventListener("mosusewheel", handleScroll, false)
+        // document.addEventListener("touchmove", handleScroll, false)
+        //
+        // document.addEventListener("scroll", handleScroll, {passive: false})
+        // if (parentRef)
+        // console.log(parentRef.current?.className)
+
+        // following solution works but scroll position is lost
+
+        // const origClasses = parentRef.current?.className
+        // if (parentRef.current) {
+        //     parentRef.current.className += " fixed overflow-hidden"
+        // }
+
+        // rework to body
+        // const origClasses = document.body.className
+        // const origScroll = window.scrollY
+        // document.body.className += " fixed overflow-hidden"
+        // document.body.style.top = window.scrollY
+
+
+        document.addEventListener("wheel", handleScroll, {passive: false, capture: true})
+        document.addEventListener("touchmove", handleScroll, {passive: false, capture: true})
+        document.addEventListener("scroll", handleScroll, {passive: false, capture: true})
+
+
+        return () => {
+            // document.removeEventListener("scroll", handleScroll, true)
+            //
+            // document.removeEventListener("scroll", handleScroll, false)
+            // document.removeEventListener("mosusewheel", handleScroll, false)
+            // document.removeEventListener("touchmove", handleScroll, false)
+            //
+            // document.removeEventListener("scroll", handleScroll, {passive: false})
+            // if (parentRef.current) {
+            //     parentRef.current.className = origClasses
+            // }
+
+            // document.body.className = origClasses
+            // // console.log(origScroll)
+            // window?.scrollTo({top: origScroll})
+            // console.log("listener removed")
+
+
+            document.removeEventListener("wheel", handleScroll, {passive: false, capture: true})
+            document.removeEventListener("touchmove", handleScroll, {passive: false, capture: true})
+            document.removeEventListener("scroll", handleScroll, {passive: false, capture: true})
+
+        }
+    }, [])
+
     // TODO rem redundant divs, bg images residue
     return (
         <>
@@ -93,7 +164,7 @@ function Lightbox({ initialSelectedId, images, closeFn, ...props }) {
                                 {!isMainImgFirst &&
                                     <div className="h-full w-full flex justify-center items-center">
                                         {/* <AiOutlineCaretLeft size={32} color="red" title="next" /> */}
-                                        <AiOutlineCaretLeft style={{width: "100%", height: "100%"}} color="red" title="next" />
+                                        <AiOutlineCaretLeft style={{ width: "100%", height: "100%" }} color="red" title="next" />
                                     </div>
                                     // <MdOutlineArrowLeft />
                                     // <div className="relative h-full w-full">
@@ -141,7 +212,7 @@ function Lightbox({ initialSelectedId, images, closeFn, ...props }) {
                                 {!isMainImgLast &&
                                     <div className="h-full w-full flex  justify-center items-center">
                                         {/* <div className="h-[64px] w-[128px] overflow-hidden flex justify-center items-center"> */}
-                                        <AiOutlineCaretRight style={{width: "100%", height: "100%"}} color="red" title="next" />
+                                        <AiOutlineCaretRight style={{ width: "100%", height: "100%" }} color="red" title="next" />
                                         {/* </div> */}
                                     </div>
                                 }
